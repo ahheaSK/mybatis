@@ -1,0 +1,123 @@
+databaseChangeLog:
+  - changeSet:
+      id: data-001-menus
+      author: app
+      dbms: postgresql
+      comment: Seed menu items
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO menu (name, path, title, sort_order, text_color) VALUES
+              ('Admin', '/admin', 'Admin', 0, '#000000'),
+              ('Dashboard', '/dashboard', 'Dashboard', 1, '#000000'),
+              ('Reports', '/reports', 'Reports', 2, '#000000'),
+              ('Settings', '/settings', 'Settings', 3, '#000000'),
+              ('My profile', '/profile', 'My profile', 4, '#000000'),
+              ('Users', '/users', 'Users', 5, '#000000'),
+              ('Roles', '/roles', 'Roles', 6, '#000000'),
+              ('Permissions', '/permissions', 'Permissions', 7, '#000000'),
+              ('Audit log', '/audit', 'Audit log', 8, '#000000')
+
+  - changeSet:
+      id: data-002-permissions
+      author: app
+      dbms: postgresql
+      comment: Seed permissions (RBAC)
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO permission (code, name, description) VALUES
+              ('admin:access', 'Admin', 'Access admin panel and all settings'),
+              ('user:read', 'Users (read)', 'View user list and details'),
+              ('user:write', 'Users (write)', 'Create and edit users'),
+              ('role:read', 'Roles (read)', 'View roles and permissions'),
+              ('role:write', 'Roles (write)', 'Assign and edit roles'),
+              ('permission:read', 'Permissions (read)', 'View permission list'),
+              ('permission:write', 'Permissions (write)', 'Manage permissions and menus')
+              ON CONFLICT (code) DO NOTHING
+
+  - changeSet:
+      id: data-003-roles
+      author: app
+      dbms: postgresql
+      comment: Seed roles
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO role (code, name, description) VALUES
+              ('ADMIN', 'Administrator', 'Full access to all menus and actions'),
+              ('MANAGER', 'Manager', 'User and role management'),
+              ('USER', 'User', 'Dashboard and read-only access')
+              ON CONFLICT (code) DO NOTHING
+
+  - changeSet:
+      id: data-004-role-menu
+      author: app
+      dbms: postgresql
+      comment: Assign menus to roles
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO role_menu (role_id, menu_id)
+              SELECT r.id, m.id FROM role r, menu m WHERE r.code = 'ADMIN'
+              ON CONFLICT (role_id, menu_id) DO NOTHING
+        - sql:
+            sql: |
+              INSERT INTO role_menu (role_id, menu_id)
+              SELECT r.id, m.id FROM role r, menu m
+              WHERE r.code = 'MANAGER' AND m.path IN ('/dashboard','/reports','/users','/roles','/permissions','/profile')
+              ON CONFLICT (role_id, menu_id) DO NOTHING
+        - sql:
+            sql: |
+              INSERT INTO role_menu (role_id, menu_id)
+              SELECT r.id, m.id FROM role r, menu m
+              WHERE r.code = 'USER' AND m.path IN ('/dashboard','/profile')
+              ON CONFLICT (role_id, menu_id) DO NOTHING
+
+  - changeSet:
+      id: data-005-role-permission
+      author: app
+      dbms: postgresql
+      comment: Assign permissions to roles
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO role_permission (role_id, permission_id)
+              SELECT r.id, p.id FROM role r, permission p WHERE r.code = 'ADMIN'
+              ON CONFLICT (role_id, permission_id) DO NOTHING
+        - sql:
+            sql: |
+              INSERT INTO role_permission (role_id, permission_id)
+              SELECT r.id, p.id FROM role r, permission p
+              WHERE r.code = 'MANAGER' AND p.code IN ('user:read','user:write','role:read','role:write','permission:read')
+              ON CONFLICT (role_id, permission_id) DO NOTHING
+        - sql:
+            sql: |
+              INSERT INTO role_permission (role_id, permission_id)
+              SELECT r.id, p.id FROM role r, permission p
+              WHERE r.code = 'USER' AND p.code = 'user:read'
+              ON CONFLICT (role_id, permission_id) DO NOTHING
+
+  - changeSet:
+      id: data-006-user-admin
+      author: app
+      dbms: postgresql
+      comment: Seed admin user - admin / password
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO "user" (username, password, email, enabled) VALUES
+              ('admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'admin@example.com', true)
+              ON CONFLICT (username) DO NOTHING
+
+  - changeSet:
+      id: data-007-user-role-admin
+      author: app
+      dbms: postgresql
+      comment: Assign ADMIN role to admin user
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO user_role (user_id, role_id)
+              SELECT u.id, r.id FROM "user" u, role r WHERE u.username = 'admin' AND r.code = 'ADMIN'
+              ON CONFLICT (user_id, role_id) DO NOTHING

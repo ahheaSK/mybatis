@@ -7,6 +7,7 @@ import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.PaginationDto;
 import com.example.mybatis.dto.response.UserResponse;
 import com.example.mybatis.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Void>> create(@RequestBody UserCreateRequest request) {
+    public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody UserCreateRequest request) {
         userService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "User created successfully", 201));
     }
@@ -64,7 +65,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> update(
             @PathVariable Long id,
-            @RequestBody UserUpdateRequest request
+            @Valid @RequestBody UserUpdateRequest request
     ) {
         userService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "User updated successfully", 200));

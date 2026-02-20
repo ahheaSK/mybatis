@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +20,5 @@ public class UserResponse {
     private Boolean enabled;
     private Instant createdAt;
     private Instant updatedAt;
+    private List<RoleResponse> roles;
 }

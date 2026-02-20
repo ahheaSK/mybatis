@@ -20,6 +20,7 @@
 
     <sql id="Where_Condition">
         <where>
+            AND deleted_at IS NULL
             <if test="name != null and name != ''">
                 AND username ILIKE '%' || #{name} || '%'
             </if>
@@ -33,6 +34,7 @@
         SELECT <include refid="Base_Column_List"/>
         FROM "user"
         WHERE id = #{id}
+        AND deleted_at IS NULL
     </select>
 
     <select id="selectByCondition" resultMap="UserResultMap">
@@ -66,8 +68,9 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteById">
-        DELETE FROM "user"
+    <update id="deleteById">
+        UPDATE "user"
+        SET deleted_at = CURRENT_TIMESTAMP
         WHERE id = #{id}
-    </delete>
+    </update>
 </mapper>

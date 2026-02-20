@@ -13,19 +13,32 @@ import com.example.mybatis.dto.response.UserResponse;
 import com.example.mybatis.entity.User;
 import com.example.mybatis.exception.BadRequestException;
 import com.example.mybatis.exception.ResourceNotFoundException;
+import com.example.mybatis.mapper.RoleMapper;
 import com.example.mybatis.mapper.UserMapper;
+import com.example.mybatis.mapper.UserRoleMapper;
+import com.example.mybatis.mapper.dto.RoleDtoMapper;
 import com.example.mybatis.mapper.dto.UserDtoMapper;
+import com.example.mybatis.service.RoleService;
 import com.example.mybatis.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+    private final RoleMapper roleMapper;
+    private final UserRoleMapper userRoleMapper;
+    private final RoleService roleService;
     private final UserDtoMapper userDtoMapper;
+    private final RoleDtoMapper roleDtoMapper;
 
-    public UserServiceImpl(UserMapper userMapper, UserDtoMapper userDtoMapper) {
+    public UserServiceImpl(UserMapper userMapper, RoleMapper roleMapper, UserRoleMapper userRoleMapper,
+                           RoleService roleService, UserDtoMapper userDtoMapper, RoleDtoMapper roleDtoMapper) {
         this.userMapper = userMapper;
+        this.roleMapper = roleMapper;
+        this.userRoleMapper = userRoleMapper;
+        this.roleService = roleService;
         this.userDtoMapper = userDtoMapper;
+        this.roleDtoMapper = roleDtoMapper;
     }
 
     @Override
@@ -34,7 +47,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.selectByCondition(name, email, offset, size);
         long total = userMapper.countByCondition(name, email);
         List<UserResponse> content = users.stream()
-                .map(userDtoMapper::toDTO)
+                .map(user -> toUserResponseWithRoles(user))
                 .collect(Collectors.toList());
         return new PageResponse<>(content, total, size, page);
     }
@@ -43,14 +56,22 @@ public class UserServiceImpl implements UserService {
     public UserResponse findById(Long id) {
         User user = userMapper.selectById(id);
         if (user == null) throw new ResourceNotFoundException("User", id);
-        return userDtoMapper.toDTO(user);
+        return toUserResponseWithRoles(user);
+    }
+
+    private UserResponse toUserResponseWithRoles(User user) {
+        UserResponse response = userDtoMapper.toDTO(user);
+        response.setRoles(roleDtoMapper.toDTOList(roleMapper.selectByUserId(user.getId())));
+        return response;
     }
 
     @Override
     @Transactional
     public void create(UserCreateRequest request) {
+        roleService.validateRoleIds(request.getRoleIds());
         User user = userDtoMapper.toEntity(request);
         if (userMapper.insert(user) <= 0) throw new BadRequestException("User creation failed");
+        request.getRoleIds().forEach(roleId -> userRoleMapper.insert(user.getId(), roleId));
     }
 
     @Override
@@ -60,6 +81,11 @@ public class UserServiceImpl implements UserService {
         if (existing == null) throw new ResourceNotFoundException("User", id);
         userDtoMapper.updateEntity(existing, request);
         userMapper.update(existing);
+        if (request.getRoleIds() != null) {
+            roleService.validateRoleIds(request.getRoleIds());
+            userRoleMapper.deleteByUserId(id);
+            request.getRoleIds().forEach(roleId -> userRoleMapper.insert(id, roleId));
+        }
     }
 
     @Override

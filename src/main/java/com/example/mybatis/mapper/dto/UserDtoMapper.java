@@ -9,8 +9,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface UserDtoMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -20,6 +21,7 @@ public interface UserDtoMapper {
     @Mapping(target = "enabled", defaultValue = "true")
     User toEntity(UserCreateRequest dto);
 
+    @Mapping(target = "roles", ignore = true)
     UserResponse toDTO(User entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

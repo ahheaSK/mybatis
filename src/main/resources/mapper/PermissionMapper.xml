@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.PermissionMapper">
+
+    <resultMap id="PermissionResultMap" type="com.example.mybatis.entity.Permission">
+        <id column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">id, code, name, description</sql>
+
+    <sql id="Where_Not_Deleted">WHERE deleted_at IS NULL</sql>
+
+    <sql id="Where_Condition">
+        <where>
+            AND deleted_at IS NULL
+            <if test="code != null and code != ''">
+                AND code ILIKE '%' || #{code} || '%'
+            </if>
+            <if test="name != null and name != ''">
+                AND name ILIKE '%' || #{name} || '%'
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectById" resultMap="PermissionResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM permission
+        <include refid="Where_Not_Deleted"/>
+        AND id = #{id}
+    </select>
+
+    <select id="selectByCondition" resultMap="PermissionResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM permission
+        <include refid="Where_Condition"/>
+        ORDER BY id
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        SELECT COUNT(*) FROM permission
+        <include refid="Where_Condition"/>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO permission (code, name, description)
+        VALUES (#{code}, #{name}, #{description})
+    </insert>
+
+    <update id="update">
+        UPDATE permission
+        <set>
+            <if test="code != null">code = #{code},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            updated_at = CURRENT_TIMESTAMP
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM permission
+        WHERE id = #{id}
+    </delete>
+</mapper>

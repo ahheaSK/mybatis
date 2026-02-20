@@ -16,3 +16,8 @@ mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.example.mybatis.entity
 
+# JWT (use a long random secret in production, e.g. from env)
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-for-hmac-sha256-must-be-at-least-32-chars}
+  expiration-ms: 86400000
+

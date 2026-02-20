@@ -33,6 +33,15 @@
         AND id = #{id}
     </select>
 
+    <select id="selectByUserId" resultMap="PermissionResultMap">
+        SELECT DISTINCT p.id, p.code, p.name, p.description
+        FROM permission p
+        INNER JOIN role_permission rp ON rp.permission_id = p.id
+        INNER JOIN user_role ur ON ur.role_id = rp.role_id
+        WHERE ur.user_id = #{userId}
+        AND p.deleted_at IS NULL
+    </select>
+
     <select id="selectByCondition" resultMap="PermissionResultMap">
         SELECT <include refid="Base_Column_List"/>
         FROM permission

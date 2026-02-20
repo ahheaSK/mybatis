@@ -11,6 +11,8 @@ public interface UserMapper {
 
     User selectById(@Param("id") Long id);
 
+    User selectByUsername(@Param("username") String username);
+
     List<User> selectByCondition(
             @Param("name") String name,
             @Param("email") String email,

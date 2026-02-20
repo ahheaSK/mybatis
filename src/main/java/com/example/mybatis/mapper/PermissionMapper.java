@@ -11,6 +11,8 @@ public interface PermissionMapper {
 
     Permission selectById(@Param("id") Long id);
 
+    List<Permission> selectByUserId(@Param("userId") Long userId);
+
     List<Permission> selectByCondition(
             @Param("code") String code,
             @Param("name") String name,

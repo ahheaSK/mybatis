@@ -37,6 +37,13 @@
         AND deleted_at IS NULL
     </select>
 
+    <select id="selectByUsername" resultMap="UserResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM "user"
+        WHERE username = #{username}
+        AND deleted_at IS NULL
+    </select>
+
     <select id="selectByCondition" resultMap="UserResultMap">
         SELECT <include refid="Base_Column_List"/>
         FROM "user"

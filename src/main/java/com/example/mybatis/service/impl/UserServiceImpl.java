@@ -3,6 +3,7 @@ package com.example.mybatis.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,15 +31,18 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final UserDtoMapper userDtoMapper;
     private final RoleDtoMapper roleDtoMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserMapper userMapper, RoleMapper roleMapper, UserRoleMapper userRoleMapper,
-                           RoleService roleService, UserDtoMapper userDtoMapper, RoleDtoMapper roleDtoMapper) {
+                           RoleService roleService, UserDtoMapper userDtoMapper, RoleDtoMapper roleDtoMapper,
+                           PasswordEncoder passwordEncoder) {
         this.userMapper = userMapper;
         this.roleMapper = roleMapper;
         this.userRoleMapper = userRoleMapper;
         this.roleService = roleService;
         this.userDtoMapper = userDtoMapper;
         this.roleDtoMapper = roleDtoMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -70,6 +74,7 @@ public class UserServiceImpl implements UserService {
     public void create(UserCreateRequest request) {
         roleService.validateRoleIds(request.getRoleIds());
         User user = userDtoMapper.toEntity(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         if (userMapper.insert(user) <= 0) throw new BadRequestException("User creation failed");
         request.getRoleIds().forEach(roleId -> userRoleMapper.insert(user.getId(), roleId));
     }
@@ -80,6 +85,9 @@ public class UserServiceImpl implements UserService {
         User existing = userMapper.selectById(id);
         if (existing == null) throw new ResourceNotFoundException("User", id);
         userDtoMapper.updateEntity(existing, request);
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            existing.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
         userMapper.update(existing);
         if (request.getRoleIds() != null) {
             roleService.validateRoleIds(request.getRoleIds());

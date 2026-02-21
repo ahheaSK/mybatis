@@ -1,0 +1,132 @@
+package com.example.mybatis.controller;
+
+import com.example.mybatis.dto.request.RoleCreateRequest;
+import com.example.mybatis.dto.request.RoleUpdateRequest;
+import com.example.mybatis.dto.response.ApiResponse;
+import com.example.mybatis.dto.response.PageResponse;
+import com.example.mybatis.dto.response.RoleResponse;
+import com.example.mybatis.exception.ResourceNotFoundException;
+import com.example.mybatis.service.RoleService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class RoleControllerTest {
+
+    @Mock
+    private RoleService roleService;
+
+    private RoleController roleController;
+
+    @BeforeEach
+    void setUp() {
+        roleController = new RoleController(roleService);
+    }
+
+    @Nested
+    @DisplayName("list")
+    class ListTests {
+        @Test
+        @DisplayName("returns 200 with paginated roles")
+        void success() {
+            List<RoleResponse> content = List.of(new RoleResponse(1L, "ADMIN", "Admin", null));
+            PageResponse<RoleResponse> pr = new PageResponse<>(content, 1, 10, 0);
+            when(roleService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<RoleResponse>>> result = roleController.list(0, 10, null, null);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody()).isNotNull();
+            assertThat(result.getBody().getCode()).isEqualTo(200);
+            assertThat(result.getBody().getData()).hasSize(1);
+            assertThat(result.getBody().getData().get(0).getCode()).isEqualTo("ADMIN");
+            verify(roleService).findAll(0, 10, null, null);
+        }
+    }
+
+    @Nested
+    @DisplayName("getOne")
+    class GetOneTests {
+        @Test
+        @DisplayName("returns 200 with role when found")
+        void success() {
+            RoleResponse role = new RoleResponse(1L, "USER", "User", null);
+            when(roleService.findById(1L)).thenReturn(role);
+
+            ResponseEntity<ApiResponse<RoleResponse>> result = roleController.getOne(1L);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody()).isNotNull();
+            assertThat(result.getBody().getData()).isEqualTo(role);
+            verify(roleService).findById(1L);
+        }
+
+        @Test
+        @DisplayName("throws when not found")
+        void notFound() {
+            when(roleService.findById(999L)).thenThrow(new ResourceNotFoundException("Role", 999L));
+
+            assertThatThrownBy(() -> roleController.getOne(999L))
+                    .isInstanceOf(ResourceNotFoundException.class);
+        }
+    }
+
+    @Nested
+    @DisplayName("create")
+    class CreateTests {
+        @Test
+        @DisplayName("returns 201 and calls service")
+        void success() {
+            RoleCreateRequest request = new RoleCreateRequest("NEW", "New Role", "Desc");
+
+            ResponseEntity<ApiResponse<Void>> result = roleController.create(request);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+            assertThat(result.getBody().getCode()).isEqualTo(201);
+            verify(roleService).create(request);
+        }
+    }
+
+    @Nested
+    @DisplayName("update")
+    class UpdateTests {
+        @Test
+        @DisplayName("returns 200 and calls service")
+        void success() {
+            RoleUpdateRequest request = new RoleUpdateRequest("UPD", "Updated", null);
+
+            ResponseEntity<ApiResponse<Void>> result = roleController.update(1L, request);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(roleService).update(eq(1L), eq(request));
+        }
+    }
+
+    @Nested
+    @DisplayName("delete")
+    class DeleteTests {
+        @Test
+        @DisplayName("returns 200 and calls service")
+        void success() {
+            ResponseEntity<ApiResponse<Void>> result = roleController.delete(1L);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(roleService).deleteById(1L);
+        }
+    }
+}

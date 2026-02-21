@@ -2,13 +2,18 @@ package com.example.mybatis.service.impl;
 
 import com.example.mybatis.dto.request.RoleCreateRequest;
 import com.example.mybatis.dto.request.RoleUpdateRequest;
+import com.example.mybatis.dto.response.MenuResponse;
 import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.RoleResponse;
+import com.example.mybatis.entity.Menu;
 import com.example.mybatis.entity.Role;
 import com.example.mybatis.exception.BadRequestException;
 import com.example.mybatis.exception.ResourceNotFoundException;
 import com.example.mybatis.audit.CurrentUserService;
+import com.example.mybatis.mapper.MenuMapper;
 import com.example.mybatis.mapper.RoleMapper;
+import com.example.mybatis.mapper.RoleMenuMapper;
+import com.example.mybatis.mapper.dto.MenuDtoMapper;
 import com.example.mybatis.mapper.dto.RoleDtoMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -39,6 +44,15 @@ class RoleServiceImplTest {
 
     @Mock
     private CurrentUserService currentUserService;
+
+    @Mock
+    private RoleMenuMapper roleMenuMapper;
+
+    @Mock
+    private MenuDtoMapper menuDtoMapper;
+
+    @Mock
+    private MenuMapper menuMapper;
 
     @InjectMocks
     private RoleServiceImpl roleService;
@@ -241,6 +255,95 @@ class RoleServiceImplTest {
                     .hasMessageContaining("Role not found in database")
                     .hasMessageContaining("[99, 100]");
             verify(roleMapper).selectExistingIds(ids);
+        }
+    }
+
+    @Nested
+    @DisplayName("getMenusByRoleId")
+    class GetMenusByRoleId {
+        @Test
+        @DisplayName("returns menu tree when role exists")
+        void success() {
+            Role role = new Role(1L, "ADMIN", "Admin", null, null);
+            Menu rootMenu = new Menu(1L, "Admin", "/admin", null, false, false, "Admin", null, false, null, "", null, 0, null, "#000", null, null, null, null);
+            Menu childMenu = new Menu(6L, "Users", "/users", null, false, false, "Users", null, false, null, "", null, 0, 1L, "#000", null, null, null, null);
+            MenuResponse rootDto = new MenuResponse(1L, "Admin", "/admin", null, false, false, "Admin", null, false, null, "", null, 0, null, "#000", null, null, new java.util.ArrayList<>());
+            MenuResponse childDto = new MenuResponse(6L, "Users", "/users", null, false, false, "Users", null, false, null, "", null, 0, 1L, "#000", null, null, new java.util.ArrayList<>());
+            when(roleMapper.selectById(1L)).thenReturn(role);
+            when(roleMenuMapper.selectMenusByRoleId(1L)).thenReturn(List.of(rootMenu, childMenu));
+            when(menuDtoMapper.toDTO(rootMenu)).thenReturn(rootDto);
+            when(menuDtoMapper.toDTO(childMenu)).thenReturn(childDto);
+
+            List<MenuResponse> result = roleService.getMenusByRoleId(1L);
+
+            assertThat(result).hasSize(1);
+            assertThat(result.get(0).getId()).isEqualTo(1L);
+            assertThat(result.get(0).getChildren()).hasSize(1);
+            assertThat(result.get(0).getChildren().get(0).getId()).isEqualTo(6L);
+            verify(roleMenuMapper).selectMenusByRoleId(1L);
+        }
+
+        @Test
+        @DisplayName("throws ResourceNotFoundException when role not found")
+        void roleNotFound() {
+            when(roleMapper.selectById(999L)).thenReturn(null);
+
+            assertThatThrownBy(() -> roleService.getMenusByRoleId(999L))
+                    .isInstanceOf(ResourceNotFoundException.class)
+                    .hasMessageContaining("Role");
+        }
+    }
+
+    @Nested
+    @DisplayName("assignMenusToRole")
+    class AssignMenusToRole {
+        @Test
+        @DisplayName("replaces assignments and inserts new menu ids")
+        void success() {
+            Role role = new Role(1L, "ADMIN", "Admin", null, null);
+            when(roleMapper.selectById(1L)).thenReturn(role);
+            when(menuMapper.selectExistingIds(List.of(2L, 3L))).thenReturn(List.of(2L, 3L));
+
+            roleService.assignMenusToRole(1L, List.of(2L, 3L));
+
+            verify(roleMenuMapper).deleteByRoleId(1L);
+            verify(roleMenuMapper).insert(1L, 2L);
+            verify(roleMenuMapper).insert(1L, 3L);
+        }
+
+        @Test
+        @DisplayName("clears assignments when menuIds is empty")
+        void clearAssignments() {
+            Role role = new Role(1L, "ADMIN", "Admin", null, null);
+            when(roleMapper.selectById(1L)).thenReturn(role);
+
+            roleService.assignMenusToRole(1L, List.of());
+
+            verify(roleMenuMapper).deleteByRoleId(1L);
+            verify(roleMenuMapper, org.mockito.Mockito.never()).insert(any(Long.class), any(Long.class));
+        }
+
+        @Test
+        @DisplayName("throws ResourceNotFoundException when role not found")
+        void roleNotFound() {
+            when(roleMapper.selectById(999L)).thenReturn(null);
+
+            assertThatThrownBy(() -> roleService.assignMenusToRole(999L, List.of(1L)))
+                    .isInstanceOf(ResourceNotFoundException.class)
+                    .hasMessageContaining("Role");
+        }
+
+        @Test
+        @DisplayName("throws BadRequestException when menu id does not exist")
+        void menuNotFound() {
+            Role role = new Role(1L, "ADMIN", "Admin", null, null);
+            when(roleMapper.selectById(1L)).thenReturn(role);
+            when(menuMapper.selectExistingIds(List.of(99L))).thenReturn(List.of());
+
+            assertThatThrownBy(() -> roleService.assignMenusToRole(1L, List.of(99L)))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Menu not found");
+            verify(menuMapper).selectExistingIds(List.of(99L));
         }
     }
 }

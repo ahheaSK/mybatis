@@ -1,8 +1,10 @@
 package com.example.mybatis.controller;
 
 import com.example.mybatis.dto.request.RoleCreateRequest;
+import com.example.mybatis.dto.request.RoleMenuAssignRequest;
 import com.example.mybatis.dto.request.RoleUpdateRequest;
 import com.example.mybatis.dto.response.ApiResponse;
+import com.example.mybatis.dto.response.MenuResponse;
 import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.RoleResponse;
 import com.example.mybatis.exception.ResourceNotFoundException;
@@ -169,6 +171,60 @@ class RoleControllerTest {
 
             assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
             verify(roleService).deleteById(1L);
+        }
+    }
+
+    @Nested
+    @DisplayName("getMenusByRole")
+    class GetMenusByRoleTests {
+        @Test
+        @DisplayName("returns 200 with menu tree when role exists")
+        void success() {
+            MenuResponse menu = new MenuResponse(1L, "Admin", "/admin", null, false, false, "Admin", null, false, null, "", null, 0, null, "#000", null, null, null);
+            List<MenuResponse> menus = List.of(menu);
+            when(roleService.getMenusByRoleId(1L)).thenReturn(menus);
+
+            ResponseEntity<ApiResponse<List<MenuResponse>>> result = roleController.getMenusByRole(1L);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody()).isNotNull();
+            assertThat(result.getBody().getData()).hasSize(1);
+            assertThat(result.getBody().getData().get(0).getName()).isEqualTo("Admin");
+            verify(roleService).getMenusByRoleId(1L);
+        }
+
+        @Test
+        @DisplayName("throws when role not found")
+        void notFound() {
+            when(roleService.getMenusByRoleId(999L)).thenThrow(new ResourceNotFoundException("Role", 999L));
+
+            assertThatThrownBy(() -> roleController.getMenusByRole(999L))
+                    .isInstanceOf(ResourceNotFoundException.class);
+        }
+    }
+
+    @Nested
+    @DisplayName("assignMenus")
+    class AssignMenusTests {
+        @Test
+        @DisplayName("returns 200 and calls service with menu ids")
+        void success() {
+            RoleMenuAssignRequest request = new RoleMenuAssignRequest(List.of(1L, 2L, 3L));
+
+            ResponseEntity<ApiResponse<Void>> result = roleController.assignMenus(1L, request);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody().getMessage()).isEqualTo("Menus assigned successfully");
+            verify(roleService).assignMenusToRole(1L, List.of(1L, 2L, 3L));
+        }
+
+        @Test
+        @DisplayName("handles null request and calls service with null menu ids")
+        void nullRequest() {
+            ResponseEntity<ApiResponse<Void>> result = roleController.assignMenus(1L, null);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(roleService).assignMenusToRole(1L, null);
         }
     }
 }

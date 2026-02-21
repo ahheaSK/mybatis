@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-menu-main-sub-hierarchy
+      author: app
+      dbms: postgresql
+      comment: Set parent_id so Admin and Settings have sub menus (main menu / sub menu structure)
+      changes:
+        # Sub menus under Admin: Users, Roles, Permissions, Audit log
+        - sql:
+            sql: |
+              UPDATE menu SET parent_id = (SELECT id FROM menu m2 WHERE m2.path = '/admin' AND m2.deleted_at IS NULL LIMIT 1)
+              WHERE path IN ('/users', '/roles', '/permissions', '/audit') AND deleted_at IS NULL
+        # Sub menu under Settings: My profile
+        - sql:
+            sql: |
+              UPDATE menu SET parent_id = (SELECT id FROM menu m2 WHERE m2.path = '/settings' AND m2.deleted_at IS NULL LIMIT 1)
+              WHERE path = '/profile' AND deleted_at IS NULL

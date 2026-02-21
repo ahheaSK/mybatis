@@ -17,3 +17,6 @@ databaseChangeLog:
   - include:
       file: changes/006-menu-main-sub.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/007-audit-log.yaml
+      relativeToChangelogFile: true

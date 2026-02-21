@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-audit-log
+      author: app
+      changes:
+        - createTable:
+            tableName: audit_log
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: method
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: http_url
+                  type: VARCHAR(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: request_data
+                  type: TEXT
+              - column:
+                  name: response_data
+                  type: TEXT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - createIndex:
+            tableName: audit_log
+            indexName: idx_audit_log_created_at
+            columns:
+              - column:
+                  name: created_at
+
+  - changeSet:
+      id: 010-add-audit-log-ousername
+      author: app
+      changes:
+        - addColumn:
+            tableName: audit_log
+            columns:
+              - column:
+                  name: ousername
+                  type: VARCHAR(100)

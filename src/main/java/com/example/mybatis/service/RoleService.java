@@ -2,6 +2,7 @@ package com.example.mybatis.service;
 
 import com.example.mybatis.dto.request.RoleCreateRequest;
 import com.example.mybatis.dto.request.RoleUpdateRequest;
+import com.example.mybatis.dto.response.MenuResponse;
 import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.RoleResponse;
 
@@ -21,4 +22,10 @@ public interface RoleService {
 
     /** Validates that all given role ids exist in DB (and are not soft-deleted). Throws BadRequestException if any are invalid. */
     void validateRoleIds(List<Long> roleIds);
+
+    /** Get all menus assigned to the role. */
+    List<MenuResponse> getMenusByRoleId(Long roleId);
+
+    /** Assign menus to role (replaces existing assignments). */
+    void assignMenusToRole(Long roleId, List<Long> menuIds);
 }

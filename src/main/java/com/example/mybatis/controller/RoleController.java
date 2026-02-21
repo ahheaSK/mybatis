@@ -1,8 +1,10 @@
 package com.example.mybatis.controller;
 
 import com.example.mybatis.dto.request.RoleCreateRequest;
+import com.example.mybatis.dto.request.RoleMenuAssignRequest;
 import com.example.mybatis.dto.request.RoleUpdateRequest;
 import com.example.mybatis.dto.response.ApiResponse;
+import com.example.mybatis.dto.response.MenuResponse;
 import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.PaginationDto;
 import com.example.mybatis.dto.response.RoleResponse;
@@ -85,5 +87,22 @@ public class RoleController {
             @Parameter(description = "Role ID") @PathVariable Long id) {
         roleService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "Role deleted successfully", 200));
+    }
+
+    @Operation(summary = "Get menus by role", description = "Returns all menus assigned to the role")
+    @GetMapping("/{id}/menus")
+    public ResponseEntity<ApiResponse<List<MenuResponse>>> getMenusByRole(
+            @Parameter(description = "Role ID") @PathVariable Long id) {
+        List<MenuResponse> menus = roleService.getMenusByRoleId(id);
+        return ResponseEntity.ok(ApiResponse.success(menus, "Get menus by role successfully", 200));
+    }
+
+    @Operation(summary = "Assign menus to role", description = "Replaces existing menu assignments with the given list")
+    @PutMapping("/{id}/menus")
+    public ResponseEntity<ApiResponse<Void>> assignMenus(
+            @Parameter(description = "Role ID") @PathVariable Long id,
+            @RequestBody RoleMenuAssignRequest request) {
+        roleService.assignMenusToRole(id, request != null ? request.getMenuIds() : null);
+        return ResponseEntity.ok(ApiResponse.success(null, "Menus assigned successfully", 200));
     }
 }

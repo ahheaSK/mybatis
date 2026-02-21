@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.mybatis.audit.CurrentUserService;
 import com.example.mybatis.dto.request.UserCreateRequest;
 import com.example.mybatis.dto.request.UserUpdateRequest;
 import com.example.mybatis.dto.response.PageResponse;
@@ -32,10 +33,11 @@ public class UserServiceImpl implements UserService {
     private final UserDtoMapper userDtoMapper;
     private final RoleDtoMapper roleDtoMapper;
     private final PasswordEncoder passwordEncoder;
+    private final CurrentUserService currentUserService;
 
     public UserServiceImpl(UserMapper userMapper, RoleMapper roleMapper, UserRoleMapper userRoleMapper,
                            RoleService roleService, UserDtoMapper userDtoMapper, RoleDtoMapper roleDtoMapper,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder, CurrentUserService currentUserService) {
         this.userMapper = userMapper;
         this.roleMapper = roleMapper;
         this.userRoleMapper = userRoleMapper;
@@ -43,6 +45,7 @@ public class UserServiceImpl implements UserService {
         this.userDtoMapper = userDtoMapper;
         this.roleDtoMapper = roleDtoMapper;
         this.passwordEncoder = passwordEncoder;
+        this.currentUserService = currentUserService;
     }
 
     @Override
@@ -75,6 +78,7 @@ public class UserServiceImpl implements UserService {
         roleService.validateRoleIds(request.getRoleIds());
         User user = userDtoMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setOusername(currentUserService.getCurrentUsername());
         if (userMapper.insert(user) <= 0) throw new BadRequestException("User creation failed");
         request.getRoleIds().forEach(roleId -> userRoleMapper.insert(user.getId(), roleId));
     }
@@ -88,6 +92,7 @@ public class UserServiceImpl implements UserService {
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             existing.setPassword(passwordEncoder.encode(request.getPassword()));
         }
+        existing.setOusername(currentUserService.getCurrentUsername());
         userMapper.update(existing);
         if (request.getRoleIds() != null) {
             roleService.validateRoleIds(request.getRoleIds());
@@ -99,6 +104,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        if (userMapper.deleteById(id) <= 0) throw new ResourceNotFoundException("User", id);
+        if (userMapper.deleteById(id, currentUserService.getCurrentUsername()) <= 0) throw new ResourceNotFoundException("User", id);
     }
 }

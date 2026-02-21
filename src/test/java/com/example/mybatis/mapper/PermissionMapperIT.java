@@ -35,7 +35,7 @@ class PermissionMapperIT {
 
     @Test
     void insertAndSelectById() {
-        Permission p = new Permission(null, "TEST_PERM", "Test Permission", "For tests");
+        Permission p = new Permission(null, "TEST_PERM", "Test Permission", "For tests", null);
         permissionMapper.insert(p);
         assertThat(p.getId()).isNotNull();
         Permission found = permissionMapper.selectById(p.getId());
@@ -45,8 +45,8 @@ class PermissionMapperIT {
 
     @Test
     void selectByConditionAndCount() {
-        permissionMapper.insert(new Permission(null, "FIND_A", "Find A", null));
-        permissionMapper.insert(new Permission(null, "FIND_B", "Find B", null));
+        permissionMapper.insert(new Permission(null, "FIND_A", "Find A", null, null));
+        permissionMapper.insert(new Permission(null, "FIND_B", "Find B", null, null));
         List<Permission> list = permissionMapper.selectByCondition("FIND", null, 0, 10);
         long count = permissionMapper.countByCondition("FIND", null);
         assertThat(list).hasSizeGreaterThanOrEqualTo(2);
@@ -55,7 +55,7 @@ class PermissionMapperIT {
 
     @Test
     void update() {
-        Permission p = new Permission(null, "UPD_PERM", "Before", null);
+        Permission p = new Permission(null, "UPD_PERM", "Before", null, null);
         permissionMapper.insert(p);
         p.setName("After");
         assertThat(permissionMapper.update(p)).isEqualTo(1);
@@ -64,7 +64,7 @@ class PermissionMapperIT {
 
     @Test
     void deleteById_hardDelete() {
-        Permission p = new Permission(null, "DEL_PERM", "To Delete", null);
+        Permission p = new Permission(null, "DEL_PERM", "To Delete", null, null);
         permissionMapper.insert(p);
         assertThat(permissionMapper.deleteById(p.getId())).isEqualTo(1);
         assertThat(permissionMapper.selectById(p.getId())).isNull();

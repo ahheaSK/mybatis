@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-add-username-role
+      author: app
+      comment: Add username column to role table
+      changes:
+        - addColumn:
+            tableName: role
+            columns:
+              - column:
+                  name: username
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 010-add-username-permission
+      author: app
+      comment: Add username column to permission table
+      changes:
+        - addColumn:
+            tableName: permission
+            columns:
+              - column:
+                  name: username
+                  type: VARCHAR(100)
+
+  - changeSet:
+      id: 011-add-username-menu
+      author: app
+      comment: Add username column to menu table
+      changes:
+        - addColumn:
+            tableName: menu
+            columns:
+              - column:
+                  name: username
+                  type: VARCHAR(100)

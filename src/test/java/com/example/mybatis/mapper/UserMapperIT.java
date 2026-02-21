@@ -43,7 +43,7 @@ class UserMapperIT {
         @Test
         @DisplayName("inserts user and selectById returns it")
         void success() {
-            User user = new User(null, "mapperuser", "secret", "mapper@test.com", true, null, null, null);
+            User user = new User(null, "mapperuser", "secret", "mapper@test.com", true, null, null, null, null);
             userMapper.insert(user);
             assertThat(user.getId()).isNotNull();
 
@@ -60,7 +60,7 @@ class UserMapperIT {
         @Test
         @DisplayName("returns user when username exists")
         void success() {
-            User user = new User(null, "uniquename", "pwd", "u@test.com", true, null, null, null);
+            User user = new User(null, "uniquename", "pwd", "u@test.com", true, null, null, null, null);
             userMapper.insert(user);
 
             User found = userMapper.selectByUsername("uniquename");
@@ -75,9 +75,9 @@ class UserMapperIT {
         @Test
         @DisplayName("returns matching users and count")
         void success() {
-            User u = new User(null, "cond_user1", "p", "c1@test.com", true, null, null, null);
+            User u = new User(null, "cond_user1", "p", "c1@test.com", true, null, null, null, null);
             userMapper.insert(u);
-            u = new User(null, "cond_user2", "p", "c2@test.com", true, null, null, null);
+            u = new User(null, "cond_user2", "p", "c2@test.com", true, null, null, null, null);
             userMapper.insert(u);
 
             List<User> list = userMapper.selectByCondition("cond_user", null, 0, 10);
@@ -93,7 +93,7 @@ class UserMapperIT {
         @Test
         @DisplayName("updates user")
         void success() {
-            User user = new User(null, "upduser", "p", "upd@test.com", true, null, null, null);
+            User user = new User(null, "upduser", "p", "upd@test.com", true, null, null, null, null);
             userMapper.insert(user);
             user.setEmail("new@test.com");
             int rows = userMapper.update(user);
@@ -110,10 +110,10 @@ class UserMapperIT {
         @Test
         @DisplayName("soft-deletes and selectById returns null")
         void success() {
-            User user = new User(null, "deluser", "p", "del@test.com", true, null, null, null);
+            User user = new User(null, "deluser", "p", "del@test.com", true, null, null, null, null);
             userMapper.insert(user);
             Long id = user.getId();
-            int rows = userMapper.deleteById(id);
+            int rows = userMapper.deleteById(id, null);
             assertThat(rows).isEqualTo(1);
 
             User found = userMapper.selectById(id);

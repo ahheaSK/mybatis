@@ -8,9 +8,10 @@
         <result column="code" property="code"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <result column="ousername" property="ousername"/>
     </resultMap>
 
-    <sql id="Base_Column_List">id, code, name, description</sql>
+    <sql id="Base_Column_List">id, code, name, description, ousername</sql>
 
     <sql id="Where_Not_Deleted">WHERE deleted_at IS NULL</sql>
 
@@ -23,6 +24,9 @@
             <if test="name != null and name != ''">
                 AND name ILIKE '%' || #{name} || '%'
             </if>
+            <if test="username != null and username != ''">
+                AND username ILIKE '%' || #{username} || '%'
+            </if>
         </where>
     </sql>
 
@@ -34,7 +38,7 @@
     </select>
 
     <select id="selectByUserId" resultMap="PermissionResultMap">
-        SELECT DISTINCT p.id, p.code, p.name, p.description
+        SELECT DISTINCT p.id, p.code, p.name, p.description, p.ousername
         FROM permission p
         INNER JOIN role_permission rp ON rp.permission_id = p.id
         INNER JOIN user_role ur ON ur.role_id = rp.role_id
@@ -56,8 +60,8 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO permission (code, name, description)
-        VALUES (#{code}, #{name}, #{description})
+        INSERT INTO permission (code, name, description, ousername)
+        VALUES (#{code}, #{name}, #{description}, #{ousername})
     </insert>
 
     <update id="update">
@@ -66,6 +70,7 @@
             <if test="code != null">code = #{code},</if>
             <if test="name != null">name = #{name},</if>
             <if test="description != null">description = #{description},</if>
+            <if test="ousername != null">ousername = #{ousername},</if>
             updated_at = CURRENT_TIMESTAMP
         </set>
         WHERE id = #{id}

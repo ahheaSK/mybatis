@@ -5,3 +5,12 @@ databaseChangeLog:
   - include:
       file: changes/002-data.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/003-add-username-columns.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/004-rename-username-to-ousername-role-permission.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/005-add-ousername-user.yaml
+      relativeToChangelogFile: true

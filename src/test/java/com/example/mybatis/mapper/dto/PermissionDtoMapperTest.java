@@ -57,7 +57,7 @@ class PermissionDtoMapperTest {
         @Test
         @DisplayName("maps entity to response")
         void success() {
-            Permission entity = new Permission(10L, "WRITE", "Write access", "Can write");
+            Permission entity = new Permission(10L, "WRITE", "Write access", "Can write", null);
             PermissionResponse dto = mapper.toDTO(entity);
             assertThat(dto).isNotNull();
             assertThat(dto.getId()).isEqualTo(10L);
@@ -73,7 +73,7 @@ class PermissionDtoMapperTest {
         @Test
         @DisplayName("does nothing when request is null")
         void nullRequest() {
-            Permission target = new Permission(1L, "OLD", "Old", null);
+            Permission target = new Permission(1L, "OLD", "Old", null, null);
             mapper.updateEntity(target, null);
             assertThat(target.getCode()).isEqualTo("OLD");
             assertThat(target.getName()).isEqualTo("Old");
@@ -82,7 +82,7 @@ class PermissionDtoMapperTest {
         @Test
         @DisplayName("updates only non-null fields")
         void partialUpdate() {
-            Permission target = new Permission(1L, "OLD", "Old Name", "Old desc");
+            Permission target = new Permission(1L, "OLD", "Old Name", "Old desc", null);
             PermissionUpdateRequest request = new PermissionUpdateRequest("NEW_CODE", null, null);
             mapper.updateEntity(target, request);
             assertThat(target.getCode()).isEqualTo("NEW_CODE");
@@ -93,7 +93,7 @@ class PermissionDtoMapperTest {
         @Test
         @DisplayName("updates all fields when all set")
         void fullUpdate() {
-            Permission target = new Permission(1L, "A", "B", "C");
+            Permission target = new Permission(1L, "A", "B", "C", null);
             PermissionUpdateRequest request = new PermissionUpdateRequest("X", "Y", "Z");
             mapper.updateEntity(target, request);
             assertThat(target.getCode()).isEqualTo("X");

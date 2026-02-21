@@ -69,13 +69,13 @@ class AuthControllerTest {
         @Test
         @DisplayName("returns 200 with token, roles and permissions when credentials valid")
         void success() {
-            User user = new User(1L, "testuser", "encoded", "test@example.com", true, null, null, null);
+            User user = new User(1L, "testuser", "encoded", "test@example.com", true, null, null, null, null);
             SecurityUser securityUser = new SecurityUser(user, List.of("USER"));
             when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                     .thenReturn(new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities()));
             when(jwtUtil.generateToken("testuser")).thenReturn("jwt-token-123");
-            when(roleMapper.selectByUserId(1L)).thenReturn(List.of(new Role(1L, "USER", "User", null)));
-            when(permissionMapper.selectByUserId(1L)).thenReturn(List.of(new Permission(1L, "READ", "Read", null)));
+            when(roleMapper.selectByUserId(1L)).thenReturn(List.of(new Role(1L, "USER", "User", null, null)));
+            when(permissionMapper.selectByUserId(1L)).thenReturn(List.of(new Permission(1L, "READ", "Read", null, null)));
             when(roleDtoMapper.toDTOList(any())).thenReturn(List.of(new RoleResponse(1L, "USER", "User", null)));
             when(permissionDtoMapper.toDTO(any(Permission.class))).thenReturn(new PermissionResponse(1L, "READ", "Read", null));
 

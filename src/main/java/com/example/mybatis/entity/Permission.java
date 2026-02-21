@@ -15,4 +15,5 @@ public class Permission {
     private String code;
     private String name;
     private String description;
+    private String ousername;
 }

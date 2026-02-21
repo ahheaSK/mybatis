@@ -29,5 +29,5 @@ public interface RoleMapper {
 
     int update(Role role);
 
-    int deleteById(@Param("id") Long id);
+    int deleteById(@Param("id") Long id, @Param("username") String username);
 }

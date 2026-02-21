@@ -1,5 +1,6 @@
 package com.example.mybatis.service.impl;
 
+import com.example.mybatis.audit.CurrentUserService;
 import com.example.mybatis.dto.request.UserCreateRequest;
 import com.example.mybatis.dto.request.UserUpdateRequest;
 import com.example.mybatis.dto.response.PageResponse;
@@ -61,6 +62,9 @@ class UserServiceImplTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private CurrentUserService currentUserService;
+
     @InjectMocks
     private UserServiceImpl userService;
 
@@ -69,7 +73,7 @@ class UserServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        userEntity = new User(1L, "jane", "encoded", "jane@example.com", true, null, null, null);
+        userEntity = new User(1L, "jane", "encoded", "jane@example.com", true, null, null, null, null);
         userResponse = new UserResponse(1L, "jane", "jane@example.com", true, null, null, List.of());
     }
 
@@ -81,7 +85,7 @@ class UserServiceImplTest {
         void found() {
             when(userMapper.selectById(1L)).thenReturn(userEntity);
             when(userDtoMapper.toDTO(userEntity)).thenReturn(userResponse);
-            when(roleMapper.selectByUserId(1L)).thenReturn(List.of(new Role(1L, "USER", "User", null)));
+            when(roleMapper.selectByUserId(1L)).thenReturn(List.of(new Role(1L, "USER", "User", null, null)));
             when(roleDtoMapper.toDTOList(any())).thenReturn(List.of(new RoleResponse(1L, "USER", "User", null)));
 
             UserResponse result = userService.findById(1L);
@@ -138,7 +142,7 @@ class UserServiceImplTest {
         @DisplayName("validates roleIds, encodes password, inserts user and user_role")
         void success() {
             UserCreateRequest request = new UserCreateRequest("newuser", "plain", "new@example.com", true, List.of(1L, 2L));
-            User entityToInsert = new User(null, "newuser", null, "new@example.com", true, null, null, null);
+            User entityToInsert = new User(null, "newuser", null, "new@example.com", true, null, null, null, null);
             when(userDtoMapper.toEntity(request)).thenReturn(entityToInsert);
             when(passwordEncoder.encode("plain")).thenReturn("encoded");
             when(userMapper.insert(any(User.class))).thenAnswer(inv -> {
@@ -162,7 +166,7 @@ class UserServiceImplTest {
         @DisplayName("throws BadRequestException when insert returns 0")
         void insertFails() {
             UserCreateRequest request = new UserCreateRequest("x", "y", "x@e.com", true, List.of(1L));
-            when(userDtoMapper.toEntity(request)).thenReturn(new User(null, "x", null, "x@e.com", true, null, null, null));
+            when(userDtoMapper.toEntity(request)).thenReturn(new User(null, "x", null, "x@e.com", true, null, null, null, null));
             when(passwordEncoder.encode("y")).thenReturn("enc");
             when(userMapper.insert(any(User.class))).thenReturn(0);
 
@@ -244,23 +248,23 @@ class UserServiceImplTest {
         @Test
         @DisplayName("calls delete when user exists")
         void success() {
-            when(userMapper.deleteById(1L)).thenReturn(1);
+            when(userMapper.deleteById(1L, null)).thenReturn(1);
 
             userService.deleteById(1L);
 
-            verify(userMapper).deleteById(1L);
+            verify(userMapper).deleteById(1L, null);
         }
 
         @Test
         @DisplayName("throws ResourceNotFoundException when not found")
         void notFound() {
-            when(userMapper.deleteById(999L)).thenReturn(0);
+            when(userMapper.deleteById(999L, null)).thenReturn(0);
 
             assertThatThrownBy(() -> userService.deleteById(999L))
                     .isInstanceOf(ResourceNotFoundException.class)
                     .hasMessageContaining("User");
 
-            verify(userMapper).deleteById(999L);
+            verify(userMapper).deleteById(999L, null);
         }
     }
 }

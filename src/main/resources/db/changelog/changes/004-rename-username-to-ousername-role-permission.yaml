@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012-rename-role-username-to-ousername
+      author: app
+      comment: Rename username to ousername on role table (audit field)
+      changes:
+        - renameColumn:
+            tableName: role
+            oldColumnName: username
+            newColumnName: ousername
+            columnDataType: VARCHAR(100)
+
+  - changeSet:
+      id: 013-rename-permission-username-to-ousername
+      author: app
+      comment: Rename username to ousername on permission table (audit field)
+      changes:
+        - renameColumn:
+            tableName: permission
+            oldColumnName: username
+            newColumnName: ousername
+            columnDataType: VARCHAR(100)

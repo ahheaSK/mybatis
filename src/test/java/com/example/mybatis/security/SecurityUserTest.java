@@ -13,7 +13,7 @@ class SecurityUserTest {
 
     @Test
     void authoritiesHaveRolePrefix() {
-        User user = new User(1L, "john", "enc", "j@e.com", true, null, null, null);
+        User user = new User(1L, "john", "enc", "j@e.com", true, null, null, null, null);
         SecurityUser sec = new SecurityUser(user, List.of("ADMIN", "USER"));
         List<String> auths = sec.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -26,7 +26,7 @@ class SecurityUserTest {
 
     @Test
     void disabledUser_isEnabledFalse() {
-        User user = new User(2L, "u", "p", null, false, null, null, null);
+        User user = new User(2L, "u", "p", null, false, null, null, null, null);
         SecurityUser sec = new SecurityUser(user, List.of());
         assertThat(sec.isEnabled()).isFalse();
     }

@@ -1,5 +1,6 @@
 package com.example.mybatis.service.impl;
 
+import com.example.mybatis.audit.CurrentUserService;
 import com.example.mybatis.dto.request.PermissionCreateRequest;
 import com.example.mybatis.dto.request.PermissionUpdateRequest;
 import com.example.mybatis.dto.response.PermissionResponse;
@@ -35,6 +36,9 @@ class PermissionServiceImplTest {
     @Mock
     private PermissionDtoMapper permissionDtoMapper;
 
+    @Mock
+    private CurrentUserService currentUserService;
+
     @InjectMocks
     private PermissionServiceImpl permissionService;
 
@@ -43,7 +47,7 @@ class PermissionServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        entity = new Permission(1L, "READ_USERS", "Read users", "View user list");
+        entity = new Permission(1L, "READ_USERS", "Read users", "View user list", null);
         dto = new PermissionResponse(1L, "READ_USERS", "Read users", "View user list");
     }
 
@@ -105,7 +109,7 @@ class PermissionServiceImplTest {
         @DisplayName("inserts and sets id on entity")
         void success() {
             PermissionCreateRequest request = new PermissionCreateRequest("NEW_CODE", "New", "Desc");
-            when(permissionDtoMapper.toEntity(request)).thenReturn(new Permission(null, "NEW_CODE", "New", "Desc"));
+            when(permissionDtoMapper.toEntity(request)).thenReturn(new Permission(null, "NEW_CODE", "New", "Desc", null));
             when(permissionMapper.insert(any(Permission.class))).thenAnswer(inv -> {
                 Permission p = inv.getArgument(0);
                 p.setId(2L);
@@ -121,7 +125,7 @@ class PermissionServiceImplTest {
         @DisplayName("throws BadRequestException when insert returns 0")
         void insertFails() {
             PermissionCreateRequest request = new PermissionCreateRequest("X", "Y", null);
-            when(permissionDtoMapper.toEntity(request)).thenReturn(new Permission(null, "X", "Y", null));
+            when(permissionDtoMapper.toEntity(request)).thenReturn(new Permission(null, "X", "Y", null, null));
             when(permissionMapper.insert(any(Permission.class))).thenReturn(0);
 
             assertThatThrownBy(() -> permissionService.create(request))

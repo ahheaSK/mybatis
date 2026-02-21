@@ -59,7 +59,7 @@ class RoleDtoMapperTest {
         @Test
         @DisplayName("maps entity to response")
         void success() {
-            Role entity = new Role(1L, "USER", "User", "Regular user");
+            Role entity = new Role(1L, "USER", "User", "Regular user", null);
             RoleResponse dto = mapper.toDTO(entity);
             assertThat(dto).isNotNull();
             assertThat(dto.getId()).isEqualTo(1L);
@@ -75,7 +75,7 @@ class RoleDtoMapperTest {
         @Test
         @DisplayName("does nothing when request is null")
         void nullRequest() {
-            Role target = new Role(1L, "OLD", "Old", null);
+            Role target = new Role(1L, "OLD", "Old", null, null);
             mapper.updateEntity(target, null);
             assertThat(target.getCode()).isEqualTo("OLD");
             assertThat(target.getName()).isEqualTo("Old");
@@ -84,7 +84,7 @@ class RoleDtoMapperTest {
         @Test
         @DisplayName("updates only non-null fields")
         void partialUpdate() {
-            Role target = new Role(1L, "OLD", "Old Name", "Old desc");
+            Role target = new Role(1L, "OLD", "Old Name", "Old desc", null);
             RoleUpdateRequest request = new RoleUpdateRequest("NEW_CODE", null, null);
             mapper.updateEntity(target, request);
             assertThat(target.getCode()).isEqualTo("NEW_CODE");
@@ -95,7 +95,7 @@ class RoleDtoMapperTest {
         @Test
         @DisplayName("updates all fields when all set")
         void fullUpdate() {
-            Role target = new Role(1L, "A", "B", "C");
+            Role target = new Role(1L, "A", "B", "C", null);
             RoleUpdateRequest request = new RoleUpdateRequest("X", "Y", "Z");
             mapper.updateEntity(target, request);
             assertThat(target.getCode()).isEqualTo("X");
@@ -118,8 +118,8 @@ class RoleDtoMapperTest {
         @DisplayName("maps list of entities to list of DTOs")
         void success() {
             List<Role> entities = List.of(
-                    new Role(1L, "A", "Role A", null),
-                    new Role(2L, "B", "Role B", "desc"));
+                    new Role(1L, "A", "Role A", null, null),
+                    new Role(2L, "B", "Role B", "desc", null));
             List<RoleResponse> list = mapper.toDTOList(entities);
             assertThat(list).hasSize(2);
             assertThat(list.get(0).getId()).isEqualTo(1L);

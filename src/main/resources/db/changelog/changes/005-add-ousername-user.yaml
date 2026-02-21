@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014-add-ousername-user
+      author: app
+      comment: Add ousername column to user table (audit)
+      changes:
+        - addColumn:
+            tableName: user
+            columns:
+              - column:
+                  name: ousername
+                  type: VARCHAR(100)

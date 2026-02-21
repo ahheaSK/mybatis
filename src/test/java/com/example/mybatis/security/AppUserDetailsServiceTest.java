@@ -37,11 +37,11 @@ class AppUserDetailsServiceTest {
     @Test
     @DisplayName("loadUserByUsername returns SecurityUser with roles when user exists")
     void loadUserSuccess() {
-        User user = new User(1L, "testuser", "encoded", "t@e.com", true, null, null, null);
+        User user = new User(1L, "testuser", "encoded", "t@e.com", true, null, null, null, null);
         when(userMapper.selectByUsername("testuser")).thenReturn(user);
         when(roleMapper.selectByUserId(1L)).thenReturn(List.of(
-                new Role(1L, "ADMIN", "Admin", null),
-                new Role(2L, "USER", "User", null)
+                new Role(1L, "ADMIN", "Admin", null, null),
+                new Role(2L, "USER", "User", null, null)
         ));
 
         UserDetails details = userDetailsService.loadUserByUsername("testuser");

@@ -35,7 +35,7 @@ class RoleMapperIT {
 
     @Test
     void insertAndSelectById() {
-        Role role = new Role(null, "TEST_ROLE", "Test Role", "For tests");
+        Role role = new Role(null, "TEST_ROLE", "Test Role", "For tests", null);
         roleMapper.insert(role);
         assertThat(role.getId()).isNotNull();
         Role found = roleMapper.selectById(role.getId());
@@ -45,8 +45,8 @@ class RoleMapperIT {
 
     @Test
     void selectByConditionAndCount() {
-        roleMapper.insert(new Role(null, "FILTER_A", "Filter A", null));
-        roleMapper.insert(new Role(null, "FILTER_B", "Filter B", null));
+        roleMapper.insert(new Role(null, "FILTER_A", "Filter A", null, null));
+        roleMapper.insert(new Role(null, "FILTER_B", "Filter B", null, null));
         List<Role> list = roleMapper.selectByCondition("FILTER", null, 0, 10);
         long count = roleMapper.countByCondition("FILTER", null);
         assertThat(list).hasSizeGreaterThanOrEqualTo(2);
@@ -55,7 +55,7 @@ class RoleMapperIT {
 
     @Test
     void update() {
-        Role role = new Role(null, "UPD_ROLE", "Before", null);
+        Role role = new Role(null, "UPD_ROLE", "Before", null, null);
         roleMapper.insert(role);
         role.setName("After");
         assertThat(roleMapper.update(role)).isEqualTo(1);
@@ -64,9 +64,9 @@ class RoleMapperIT {
 
     @Test
     void deleteById_softDelete() {
-        Role role = new Role(null, "DEL_ROLE", "To Delete", null);
+        Role role = new Role(null, "DEL_ROLE", "To Delete", null, null);
         roleMapper.insert(role);
-        assertThat(roleMapper.deleteById(role.getId())).isEqualTo(1);
+        assertThat(roleMapper.deleteById(role.getId(), null)).isEqualTo(1);
         assertThat(roleMapper.selectById(role.getId())).isNull();
     }
 }

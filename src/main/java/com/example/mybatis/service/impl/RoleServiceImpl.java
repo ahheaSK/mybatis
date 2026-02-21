@@ -1,5 +1,6 @@
 package com.example.mybatis.service.impl;
 
+import com.example.mybatis.audit.CurrentUserService;
 import com.example.mybatis.dto.request.RoleCreateRequest;
 import com.example.mybatis.dto.request.RoleUpdateRequest;
 import com.example.mybatis.dto.response.PageResponse;
@@ -21,10 +22,13 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleMapper roleMapper;
     private final RoleDtoMapper roleDtoMapper;
+    private final CurrentUserService currentUserService;
 
-    public RoleServiceImpl(RoleMapper roleMapper, RoleDtoMapper roleDtoMapper) {
+    public RoleServiceImpl(RoleMapper roleMapper, RoleDtoMapper roleDtoMapper,
+                           CurrentUserService currentUserService) {
         this.roleMapper = roleMapper;
         this.roleDtoMapper = roleDtoMapper;
+        this.currentUserService = currentUserService;
     }
 
     @Override
@@ -49,6 +53,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     public void create(RoleCreateRequest request) {
         Role role = roleDtoMapper.toEntity(request);
+        role.setOusername(currentUserService.getCurrentUsername());
         if (roleMapper.insert(role) <= 0) throw new BadRequestException("Role creation failed");
     }
 
@@ -59,13 +64,14 @@ public class RoleServiceImpl implements RoleService {
         if (existing == null) throw new ResourceNotFoundException("Role", id);
         roleDtoMapper.updateEntity(existing, request);
         existing.setId(id);
+        existing.setOusername(currentUserService.getCurrentUsername());
         roleMapper.update(existing);
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        if (roleMapper.deleteById(id) <= 0) throw new ResourceNotFoundException("Role", id);
+        if (roleMapper.deleteById(id, currentUserService.getCurrentUsername()) <= 0) throw new ResourceNotFoundException("Role", id);
     }
 
     @Override

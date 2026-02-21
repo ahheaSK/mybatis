@@ -8,9 +8,10 @@
         <result column="code" property="code"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <result column="ousername" property="ousername"/>
     </resultMap>
 
-    <sql id="Base_Column_List">id, code, name, description</sql>
+    <sql id="Base_Column_List">id, code, name, description, ousername</sql>
 
     <sql id="Where_Not_Deleted">WHERE deleted_at IS NULL</sql>
 
@@ -22,6 +23,9 @@
             </if>
             <if test="name != null and name != ''">
                 AND name ILIKE '%' || #{name} || '%'
+            </if>
+            <if test="ousername != null and ousername != ''">
+                AND ousername ILIKE '%' || #{ousername} || '%'
             </if>
         </where>
     </sql>
@@ -47,7 +51,7 @@
     </select>
 
     <select id="selectByUserId" resultMap="RoleResultMap">
-        SELECT r.id, r.code, r.name, r.description
+        SELECT r.id, r.code, r.name, r.description, r.ousername
         FROM role r
         INNER JOIN user_role ur ON ur.role_id = r.id
         WHERE ur.user_id = #{userId}
@@ -64,8 +68,8 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO role (code, name, description)
-        VALUES (#{code}, #{name}, #{description})
+        INSERT INTO role (code, name, description, ousername)
+        VALUES (#{code}, #{name}, #{description}, #{ousername})
     </insert>
 
     <update id="update">
@@ -74,6 +78,7 @@
             <if test="code != null">code = #{code},</if>
             <if test="name != null">name = #{name},</if>
             <if test="description != null">description = #{description},</if>
+            <if test="ousername != null">ousername = #{ousername},</if>
             updated_at = CURRENT_TIMESTAMP
         </set>
         WHERE id = #{id}
@@ -81,7 +86,8 @@
 
     <update id="deleteById">
         UPDATE role
-        SET deleted_at = CURRENT_TIMESTAMP
+        SET deleted_at = CURRENT_TIMESTAMP,
+            ousername = #{username}
         WHERE id = #{id}
     </update>
 </mapper>

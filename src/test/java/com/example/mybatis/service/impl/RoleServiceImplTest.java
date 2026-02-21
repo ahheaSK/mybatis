@@ -7,6 +7,7 @@ import com.example.mybatis.dto.response.RoleResponse;
 import com.example.mybatis.entity.Role;
 import com.example.mybatis.exception.BadRequestException;
 import com.example.mybatis.exception.ResourceNotFoundException;
+import com.example.mybatis.audit.CurrentUserService;
 import com.example.mybatis.mapper.RoleMapper;
 import com.example.mybatis.mapper.dto.RoleDtoMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -36,6 +37,9 @@ class RoleServiceImplTest {
     @Mock
     private RoleDtoMapper roleDtoMapper;
 
+    @Mock
+    private CurrentUserService currentUserService;
+
     @InjectMocks
     private RoleServiceImpl roleService;
 
@@ -45,7 +49,7 @@ class RoleServiceImplTest {
         @Test
         @DisplayName("returns role when found")
         void found() {
-            Role entity = new Role(1L, "ADMIN", "Administrator", null);
+            Role entity = new Role(1L, "ADMIN", "Administrator", null, null);
             RoleResponse dto = new RoleResponse(1L, "ADMIN", "Administrator", null);
             when(roleMapper.selectById(1L)).thenReturn(entity);
             when(roleDtoMapper.toDTO(entity)).thenReturn(dto);
@@ -77,8 +81,8 @@ class RoleServiceImplTest {
         @DisplayName("returns paginated roles with code and name filter")
         void success() {
             List<Role> entities = List.of(
-                    new Role(1L, "ADMIN", "Administrator", null),
-                    new Role(2L, "USER", "User", null));
+                    new Role(1L, "ADMIN", "Administrator", null, null),
+                    new Role(2L, "USER", "User", null, null));
             List<RoleResponse> dtos = List.of(
                     new RoleResponse(1L, "ADMIN", "Administrator", null),
                     new RoleResponse(2L, "USER", "User", null));
@@ -107,7 +111,7 @@ class RoleServiceImplTest {
         @DisplayName("maps request, inserts and succeeds")
         void success() {
             RoleCreateRequest request = new RoleCreateRequest("NEW", "New Role", "desc");
-            Role entity = new Role(null, "NEW", "New Role", "desc");
+            Role entity = new Role(null, "NEW", "New Role", "desc", null);
             when(roleDtoMapper.toEntity(request)).thenReturn(entity);
             when(roleMapper.insert(any(Role.class))).thenReturn(1);
 
@@ -122,7 +126,7 @@ class RoleServiceImplTest {
         @DisplayName("throws BadRequestException when insert returns 0")
         void insertFails() {
             RoleCreateRequest request = new RoleCreateRequest("X", "X", null);
-            when(roleDtoMapper.toEntity(request)).thenReturn(new Role(null, "X", "X", null));
+            when(roleDtoMapper.toEntity(request)).thenReturn(new Role(null, "X", "X", null, null));
             when(roleMapper.insert(any(Role.class))).thenReturn(0);
 
             assertThatThrownBy(() -> roleService.create(request))
@@ -138,7 +142,7 @@ class RoleServiceImplTest {
         @DisplayName("loads existing, updates entity and calls mapper")
         void success() {
             Long id = 2L;
-            Role existing = new Role(id, "OLD", "Old Name", null);
+            Role existing = new Role(id, "OLD", "Old Name", null, null);
             RoleUpdateRequest request = new RoleUpdateRequest("UPD", "Updated", "desc");
             when(roleMapper.selectById(id)).thenReturn(existing);
             when(roleMapper.update(any(Role.class))).thenReturn(1);
@@ -177,22 +181,24 @@ class RoleServiceImplTest {
         @Test
         @DisplayName("succeeds when row deleted")
         void success() {
-            when(roleMapper.deleteById(1L)).thenReturn(1);
+            when(currentUserService.getCurrentUsername()).thenReturn("audit-user");
+            when(roleMapper.deleteById(1L, "audit-user")).thenReturn(1);
 
             roleService.deleteById(1L);
 
-            verify(roleMapper).deleteById(1L);
+            verify(roleMapper).deleteById(1L, "audit-user");
         }
 
         @Test
         @DisplayName("throws ResourceNotFoundException when no row deleted")
         void notFound() {
-            when(roleMapper.deleteById(999L)).thenReturn(0);
+            when(currentUserService.getCurrentUsername()).thenReturn(null);
+            when(roleMapper.deleteById(999L, null)).thenReturn(0);
 
             assertThatThrownBy(() -> roleService.deleteById(999L))
                     .isInstanceOf(ResourceNotFoundException.class)
                     .hasMessageContaining("Role");
-            verify(roleMapper).deleteById(999L);
+            verify(roleMapper).deleteById(999L, null);
         }
     }
 

@@ -15,4 +15,5 @@ public class Role {
     private String code;
     private String name;
     private String description;
+    private String ousername;
 }

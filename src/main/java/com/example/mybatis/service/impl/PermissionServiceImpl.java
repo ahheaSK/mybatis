@@ -1,5 +1,6 @@
 package com.example.mybatis.service.impl;
 
+import com.example.mybatis.audit.CurrentUserService;
 import com.example.mybatis.dto.request.PermissionCreateRequest;
 import com.example.mybatis.dto.request.PermissionUpdateRequest;
 import com.example.mybatis.dto.response.PageResponse;
@@ -21,10 +22,13 @@ public class PermissionServiceImpl implements PermissionService {
 
     private final PermissionMapper permissionMapper;
     private final PermissionDtoMapper permissionDtoMapper;
+    private final CurrentUserService currentUserService;
 
-    public PermissionServiceImpl(PermissionMapper permissionMapper, PermissionDtoMapper permissionDtoMapper) {
+    public PermissionServiceImpl(PermissionMapper permissionMapper, PermissionDtoMapper permissionDtoMapper,
+                                 CurrentUserService currentUserService) {
         this.permissionMapper = permissionMapper;
         this.permissionDtoMapper = permissionDtoMapper;
+        this.currentUserService = currentUserService;
     }
 
     @Override
@@ -51,6 +55,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Transactional
     public void create(PermissionCreateRequest request) {
         Permission permission = permissionDtoMapper.toEntity(request);
+        permission.setOusername(currentUserService.getCurrentUsername());
         if (permissionMapper.insert(permission) <= 0) {
             throw new BadRequestException("Permission creation failed");
         }
@@ -65,6 +70,7 @@ public class PermissionServiceImpl implements PermissionService {
         }
         permissionDtoMapper.updateEntity(existing, request);
         existing.setId(id);
+        existing.setOusername(currentUserService.getCurrentUsername());
         permissionMapper.update(existing);
     }
 

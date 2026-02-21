@@ -72,7 +72,7 @@ class UserDtoMapperTest {
         @DisplayName("maps entity to response; roles not set")
         void success() {
             Instant now = Instant.now();
-            User entity = new User(1L, "admin", "enc", "admin@example.com", true, now, now, null);
+            User entity = new User(1L, "admin", "enc", "admin@example.com", true, now, now, null, null);
             UserResponse dto = mapper.toDTO(entity);
             assertThat(dto).isNotNull();
             assertThat(dto.getId()).isEqualTo(1L);
@@ -91,7 +91,7 @@ class UserDtoMapperTest {
         @Test
         @DisplayName("does nothing when request is null")
         void nullRequest() {
-            User target = new User(1L, "old", "pass", "old@e.com", true, null, null, null);
+            User target = new User(1L, "old", "pass", "old@e.com", true, null, null, null, null);
             mapper.updateEntity(target, null);
             assertThat(target.getUsername()).isEqualTo("old");
         }
@@ -99,7 +99,7 @@ class UserDtoMapperTest {
         @Test
         @DisplayName("updates only non-null fields")
         void partialUpdate() {
-            User target = new User(1L, "old", "oldPass", "old@e.com", true, null, null, null);
+            User target = new User(1L, "old", "oldPass", "old@e.com", true, null, null, null, null);
             UserUpdateRequest request = new UserUpdateRequest("newUser", null, null, null, null);
             mapper.updateEntity(target, request);
             assertThat(target.getUsername()).isEqualTo("newUser");
@@ -110,7 +110,7 @@ class UserDtoMapperTest {
         @Test
         @DisplayName("updates all fields when all set")
         void fullUpdate() {
-            User target = new User(1L, "a", "b", "a@b.com", true, null, null, null);
+            User target = new User(1L, "a", "b", "a@b.com", true, null, null, null, null);
             UserUpdateRequest request = new UserUpdateRequest("x", "y", "x@y.com", false, List.of(2L));
             mapper.updateEntity(target, request);
             assertThat(target.getUsername()).isEqualTo("x");

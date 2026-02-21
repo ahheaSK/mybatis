@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+	<property name="LOG_PATH" value="logs"/>
+	<property name="LOG_FILE" value="${LOG_PATH:-logs}/application"/>
+
+	<!-- Console appender -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- Rolling file: one file per day (application-yyyy-MM-dd.log), keep 15 days -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- Test: DEBUG, console only, no file -->
+	<springProfile name="test">
+		<root level="DEBUG">
+			<appender-ref ref="CONSOLE"/>
+		</root>
+		<logger name="com.example.mybatis" level="DEBUG"/>
+		<logger name="org.springframework" level="INFO"/>
+		<logger name="org.mybatis" level="DEBUG"/>
+	</springProfile>
+
+	<!-- Staging: INFO, console + file, 15 days -->
+	<springProfile name="staging">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE"/>
+			<appender-ref ref="FILE"/>
+		</root>
+		<logger name="com.example.mybatis" level="DEBUG"/>
+		<logger name="org.springframework" level="INFO"/>
+	</springProfile>
+
+	<!-- Dev: INFO, console + file, app DEBUG -->
+	<springProfile name="dev">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE"/>
+			<appender-ref ref="FILE"/>
+		</root>
+		<logger name="com.example.mybatis" level="DEBUG"/>
+		<logger name="org.springframework" level="INFO"/>
+	</springProfile>
+
+	<!-- Production / prod: WARN root, app logs INFO -->
+	<springProfile name="production">
+		<root level="WARN">
+			<appender-ref ref="CONSOLE"/>
+			<appender-ref ref="FILE"/>
+		</root>
+		<logger name="com.example.mybatis" level="INFO"/>
+		<logger name="org.springframework" level="WARN"/>
+		<logger name="org.mybatis" level="WARN"/>
+	</springProfile>
+	<springProfile name="prod">
+		<root level="WARN">
+			<appender-ref ref="CONSOLE"/>
+			<appender-ref ref="FILE"/>
+		</root>
+		<logger name="com.example.mybatis" level="INFO"/>
+		<logger name="org.springframework" level="WARN"/>
+		<logger name="org.mybatis" level="WARN"/>
+	</springProfile>
+
+	<!-- Default (no profile or other profile): INFO, console + file -->
+	<springProfile name="!test &amp; !dev &amp; !staging &amp; !prod &amp; !production">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE"/>
+			<appender-ref ref="FILE"/>
+		</root>
+	</springProfile>
+</configuration>

@@ -1,0 +1,32 @@
+2026-02-21 13:32:42.452  INFO 4156 --- [  restartedMain] com.example.mybatis.MybatisApplication   : Starting MybatisApplication using Java 23.0.1 with PID 4156 (/Users/_jan_codes_/Desktop/my-mybatis/demo/target/classes started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:32:42.453 DEBUG 4156 --- [  restartedMain] com.example.mybatis.MybatisApplication   : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:32:42.453  INFO 4156 --- [  restartedMain] com.example.mybatis.MybatisApplication   : The following 1 profile is active: "dev"
+2026-02-21 13:32:42.483  INFO 4156 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-21 13:32:42.484  INFO 4156 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-21 13:32:43.165  INFO 4156 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8989 (http)
+2026-02-21 13:32:43.173  INFO 4156 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-21 13:32:43.173  INFO 4156 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-21 13:32:43.199  INFO 4156 --- [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 715 ms
+2026-02-21 13:32:43.251  INFO 4156 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-21 13:32:43.357  INFO 4156 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@51042ba
+2026-02-21 13:32:43.360  INFO 4156 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-21 13:32:43.477  INFO 4156 --- [  restartedMain] liquibase.database                       : Set default schema name to public
+2026-02-21 13:32:43.742  INFO 4156 --- [  restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:32:43.813  INFO 4156 --- [  restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-02-21 13:32:43.815  INFO 4156 --- [  restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : Run:                          0
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : Previously run:              22
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : -------------------------------
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : Total change sets:           22
+2026-02-21 13:32:43.824  INFO 4156 --- [  restartedMain] liquibase.util                           : Update summary generated
+2026-02-21 13:32:43.825  INFO 4156 --- [  restartedMain] liquibase.command                        : Command execution complete
+2026-02-21 13:32:45.449 DEBUG 4156 --- [  restartedMain] c.e.m.security.JwtAuthenticationFilter   : Filter 'jwtAuthenticationFilter' configured for use
+2026-02-21 13:32:45.499  INFO 4156 --- [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:32:46.010  INFO 4156 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8989 (http) with context path '/'
+2026-02-21 13:32:46.018  INFO 4156 --- [  restartedMain] com.example.mybatis.MybatisApplication   : Started MybatisApplication in 3.85 seconds (process running for 4.117)
+2026-02-21 13:32:47.632  INFO 4156 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-21 13:32:47.635  INFO 4156 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-21 13:32:47.641  INFO 4156 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-21 13:32:47.643  INFO 4156 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

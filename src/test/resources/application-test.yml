@@ -1,0 +1,25 @@
+# Test profile (optional): used if @ActiveProfiles("test"). Tests currently use @ActiveProfiles("dev") and application-dev.yml.
+# Datasource is overridden by @DynamicPropertySource (Testcontainers) in tests.
+spring:
+  application:
+    name: mybatis-test
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: test
+    password: test
+  liquibase:
+    enabled: true
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.example.mybatis.entity
+
+jwt:
+  secret: test-jwt-secret-at-least-32-characters-long
+  expiration-ms: 3600000
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

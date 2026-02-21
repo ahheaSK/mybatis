@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.util.List;
 @RequestMapping("/users")
 @Tag(name = "Users", description = "CRUD and list users")
 public class UserController {
+
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -36,6 +40,7 @@ public class UserController {
             @Parameter(description = "Filter by name (username)") @RequestParam(required = false) String name,
             @Parameter(description = "Filter by email") @RequestParam(required = false) String email
     ) {
+        log.debug("list users page={}, size={}, name={}, email={}", page, size, name, email);
         PageResponse<UserResponse> pr = userService.findAll(page, size, name, email);
         PaginationDto pagination = PaginationDto.builder()
                 .pageSize(pr.getSize())
@@ -60,12 +65,14 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponse>> getOne(
             @Parameter(description = "User ID") @PathVariable Long id) {
+        log.debug("getOne user id={}", id);
         return ResponseEntity.ok(ApiResponse.success(userService.findById(id), "Get user successfully", 200));
     }
 
     @Operation(summary = "Create user")
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody UserCreateRequest request) {
+        log.info("create user username={}", request.getUsername());
         userService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "User created successfully", 201));
     }
@@ -76,6 +83,7 @@ public class UserController {
             @Parameter(description = "User ID") @PathVariable Long id,
             @Valid @RequestBody UserUpdateRequest request
     ) {
+        log.info("update user id={}", id);
         userService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "User updated successfully", 200));
     }
@@ -84,6 +92,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(
             @Parameter(description = "User ID") @PathVariable Long id) {
+        log.info("delete user id={}", id);
         userService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "User deleted successfully", 200));
     }

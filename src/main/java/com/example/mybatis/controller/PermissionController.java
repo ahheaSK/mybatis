@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.util.List;
 @RequestMapping("/permissions")
 @Tag(name = "Permissions", description = "CRUD and list permissions")
 public class PermissionController {
+
+    private static final Logger log = LoggerFactory.getLogger(PermissionController.class);
 
     private final PermissionService permissionService;
 
@@ -36,6 +40,7 @@ public class PermissionController {
             @Parameter(description = "Filter by code") @RequestParam(required = false) String code,
             @Parameter(description = "Filter by name") @RequestParam(required = false) String name
     ) {
+        log.debug("list permissions page={}, size={}, code={}, name={}", page, size, code, name);
         PageResponse<PermissionResponse> pr = permissionService.findAll(page, size, code, name);
         PaginationDto pagination = PaginationDto.builder()
                 .pageSize(pr.getSize())
@@ -59,12 +64,14 @@ public class PermissionController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<PermissionResponse>> getOne(
             @Parameter(description = "Permission ID") @PathVariable Long id) {
+        log.debug("getOne permission id={}", id);
         return ResponseEntity.ok(ApiResponse.success(permissionService.findById(id), "Get permission successfully", 200));
     }
 
     @Operation(summary = "Create permission")
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody PermissionCreateRequest request) {
+        log.info("create permission code={}", request.getCode());
         permissionService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Permission created successfully", 201));
     }
@@ -75,6 +82,7 @@ public class PermissionController {
             @Parameter(description = "Permission ID") @PathVariable Long id,
             @Valid @RequestBody PermissionUpdateRequest request
     ) {
+        log.info("update permission id={}", id);
         permissionService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "Permission updated successfully", 200));
     }
@@ -83,6 +91,7 @@ public class PermissionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(
             @Parameter(description = "Permission ID") @PathVariable Long id) {
+        log.info("delete permission id={}", id);
         permissionService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "Permission deleted successfully", 200));
     }

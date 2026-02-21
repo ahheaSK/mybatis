@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.util.List;
 @RequestMapping("/menus")
 @Tag(name = "Menus", description = "CRUD and list menus")
 public class MenuController {
+
+    private static final Logger log = LoggerFactory.getLogger(MenuController.class);
 
     private final MenuService menuService;
 
@@ -37,6 +41,7 @@ public class MenuController {
             @Parameter(description = "Filter by path") @RequestParam(required = false) String path,
             @Parameter(description = "Filter by parent menu ID") @RequestParam(required = false) Long parentId
     ) {
+        log.debug("list menus page={}, size={}, name={}, path={}, parentId={}", page, size, name, path, parentId);
         PageResponse<MenuResponse> pr = menuService.findAll(page, size, name, path, parentId);
         PaginationDto pagination = PaginationDto.builder()
                 .pageSize(pr.getSize())
@@ -60,12 +65,14 @@ public class MenuController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<MenuResponse>> getOne(
             @Parameter(description = "Menu ID") @PathVariable Long id) {
+        log.debug("getOne menu id={}", id);
         return ResponseEntity.ok(ApiResponse.success(menuService.findById(id), "Get menu successfully", 200));
     }
 
     @Operation(summary = "Create menu")
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody MenuCreateRequest request) {
+        log.info("create menu name={}", request.getName());
         menuService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Menu created successfully", 201));
     }
@@ -76,6 +83,7 @@ public class MenuController {
             @Parameter(description = "Menu ID") @PathVariable Long id,
             @Valid @RequestBody MenuUpdateRequest request
     ) {
+        log.info("update menu id={}", id);
         menuService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "Menu updated successfully", 200));
     }
@@ -84,6 +92,7 @@ public class MenuController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(
             @Parameter(description = "Menu ID") @PathVariable Long id) {
+        log.info("delete menu id={}", id);
         menuService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "Menu deleted successfully", 200));
     }

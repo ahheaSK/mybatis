@@ -1,35 +1,3 @@
-server:
-  port: 8989
-
 spring:
-  application:
-    name: mybatis
-  datasource:
-    url: jdbc:postgresql://localhost:5434/mybatis
-    username: phoneshop_night
-    password: phoneshop123
-  liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
-    enabled: true
-
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.example.mybatis.entity
-
-# JWT (use a long random secret in production, e.g. from env)
-jwt:
-  secret: ${JWT_SECRET:your-256-bit-secret-key-for-hmac-sha256-must-be-at-least-32-chars}
-  expiration-ms: 86400000
-
-# OpenAPI / Swagger UI
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-    enabled: true
-  swagger-ui:
-    path: /swagger-ui.html
-    enabled: true
-    operationsSorter: method
-    tagsSorter: alpha
-  show-actuator: false
-
+  profiles:
+    active: dev

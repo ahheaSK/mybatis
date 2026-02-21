@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/roles")
 @Tag(name = "Roles", description = "CRUD and list roles")
 public class RoleController {
+
+    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
 
     private final RoleService roleService;
 
@@ -38,6 +42,7 @@ public class RoleController {
             @Parameter(description = "Filter by code") @RequestParam(required = false) String code,
             @Parameter(description = "Filter by name") @RequestParam(required = false) String name
     ) {
+        log.debug("list roles page={}, size={}, code={}, name={}", page, size, code, name);
         PageResponse<RoleResponse> pr = roleService.findAll(page, size, code, name);
         PaginationDto pagination = PaginationDto.builder()
                 .pageSize(pr.getSize())
@@ -61,12 +66,14 @@ public class RoleController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<RoleResponse>> getOne(
             @Parameter(description = "Role ID") @PathVariable Long id) {
+        log.debug("getOne role id={}", id);
         return ResponseEntity.ok(ApiResponse.success(roleService.findById(id), "Get role successfully", 200));
     }
 
     @Operation(summary = "Create role")
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody RoleCreateRequest request) {
+        log.info("create role code={}", request.getCode());
         roleService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Role created successfully", 201));
     }
@@ -77,6 +84,7 @@ public class RoleController {
             @Parameter(description = "Role ID") @PathVariable Long id,
             @Valid @RequestBody RoleUpdateRequest request
     ) {
+        log.info("update role id={}", id);
         roleService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "Role updated successfully", 200));
     }
@@ -85,6 +93,7 @@ public class RoleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(
             @Parameter(description = "Role ID") @PathVariable Long id) {
+        log.info("delete role id={}", id);
         roleService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "Role deleted successfully", 200));
     }
@@ -93,6 +102,7 @@ public class RoleController {
     @GetMapping("/{id}/menus")
     public ResponseEntity<ApiResponse<List<MenuResponse>>> getMenusByRole(
             @Parameter(description = "Role ID") @PathVariable Long id) {
+        log.debug("getMenusByRole roleId={}", id);
         List<MenuResponse> menus = roleService.getMenusByRoleId(id);
         return ResponseEntity.ok(ApiResponse.success(menus, "Get menus by role successfully", 200));
     }
@@ -102,6 +112,7 @@ public class RoleController {
     public ResponseEntity<ApiResponse<Void>> assignMenus(
             @Parameter(description = "Role ID") @PathVariable Long id,
             @RequestBody RoleMenuAssignRequest request) {
+        log.info("assignMenus roleId={}", id);
         roleService.assignMenusToRole(id, request != null ? request.getMenuIds() : null);
         return ResponseEntity.ok(ApiResponse.success(null, "Menus assigned successfully", 200));
     }

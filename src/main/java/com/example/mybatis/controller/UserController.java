@@ -7,6 +7,9 @@ import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.PaginationDto;
 import com.example.mybatis.dto.response.UserResponse;
 import com.example.mybatis.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "Users", description = "CRUD and list users")
 public class UserController {
 
     private final UserService userService;
@@ -24,12 +28,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "List users", description = "Returns paginated users, optionally filtered by name and email")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponse>>> list(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String email
+            @Parameter(description = "Zero-based page index") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Page size") @RequestParam(defaultValue = "10") int size,
+            @Parameter(description = "Filter by name (username)") @RequestParam(required = false) String name,
+            @Parameter(description = "Filter by email") @RequestParam(required = false) String email
     ) {
         PageResponse<UserResponse> pr = userService.findAll(page, size, name, email);
         PaginationDto pagination = PaginationDto.builder()
@@ -51,28 +56,34 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Get user by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<UserResponse>> getOne(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<UserResponse>> getOne(
+            @Parameter(description = "User ID") @PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.success(userService.findById(id), "Get user successfully", 200));
     }
 
+    @Operation(summary = "Create user")
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody UserCreateRequest request) {
         userService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "User created successfully", 201));
     }
 
+    @Operation(summary = "Update user", description = "Updates only non-null fields; omit password to keep current")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> update(
-            @PathVariable Long id,
+            @Parameter(description = "User ID") @PathVariable Long id,
             @Valid @RequestBody UserUpdateRequest request
     ) {
         userService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "User updated successfully", 200));
     }
 
+    @Operation(summary = "Delete user")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> delete(
+            @Parameter(description = "User ID") @PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "User deleted successfully", 200));
     }

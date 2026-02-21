@@ -11,6 +11,8 @@ import com.example.mybatis.mapper.dto.PermissionDtoMapper;
 import com.example.mybatis.mapper.dto.RoleDtoMapper;
 import com.example.mybatis.security.JwtUtil;
 import com.example.mybatis.security.SecurityUser;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +48,15 @@ public class AuthController {
         this.permissionDtoMapper = permissionDtoMapper;
     }
 
+    @Operation(
+            summary = "Login",
+            description = "Authenticate with username and password. Returns a JWT token to use in the **Authorize** button for other endpoints.",
+            security = {}
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Login successful; returns token and user info"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Invalid username or password")
+    })
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(

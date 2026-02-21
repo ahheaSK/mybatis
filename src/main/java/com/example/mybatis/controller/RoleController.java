@@ -7,6 +7,9 @@ import com.example.mybatis.dto.response.PageResponse;
 import com.example.mybatis.dto.response.PaginationDto;
 import com.example.mybatis.dto.response.RoleResponse;
 import com.example.mybatis.service.RoleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/roles")
+@Tag(name = "Roles", description = "CRUD and list roles")
 public class RoleController {
 
     private final RoleService roleService;
@@ -24,12 +28,13 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    @Operation(summary = "List roles", description = "Returns paginated roles, optionally filtered by code and name")
     @GetMapping
     public ResponseEntity<ApiResponse<List<RoleResponse>>> list(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String code,
-            @RequestParam(required = false) String name
+            @Parameter(description = "Zero-based page index") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Page size") @RequestParam(defaultValue = "10") int size,
+            @Parameter(description = "Filter by code") @RequestParam(required = false) String code,
+            @Parameter(description = "Filter by name") @RequestParam(required = false) String name
     ) {
         PageResponse<RoleResponse> pr = roleService.findAll(page, size, code, name);
         PaginationDto pagination = PaginationDto.builder()
@@ -50,28 +55,34 @@ public class RoleController {
         ));
     }
 
+    @Operation(summary = "Get role by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<RoleResponse>> getOne(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<RoleResponse>> getOne(
+            @Parameter(description = "Role ID") @PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.success(roleService.findById(id), "Get role successfully", 200));
     }
 
+    @Operation(summary = "Create role")
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody RoleCreateRequest request) {
         roleService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Role created successfully", 201));
     }
 
+    @Operation(summary = "Update role", description = "Updates only non-null fields")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> update(
-            @PathVariable Long id,
+            @Parameter(description = "Role ID") @PathVariable Long id,
             @Valid @RequestBody RoleUpdateRequest request
     ) {
         roleService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(null, "Role updated successfully", 200));
     }
 
+    @Operation(summary = "Delete role")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> delete(
+            @Parameter(description = "Role ID") @PathVariable Long id) {
         roleService.deleteById(id);
         return ResponseEntity.ok(ApiResponse.success(null, "Role deleted successfully", 200));
     }

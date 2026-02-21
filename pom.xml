@@ -103,6 +103,12 @@
 			<version>${mapstruct.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Rate limiting (token bucket per key) -->
+		<dependency>
+			<groupId>com.bucket4j</groupId>
+			<artifactId>bucket4j_jdk17-core</artifactId>
+			<version>8.16.1</version>
+		</dependency>
 		<!-- OpenAPI 3 / Swagger UI -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

@@ -1,3 +1,12 @@
 spring:
   profiles:
     active: dev
+
+# Rate limit defaults (per profile can override)
+app:
+  rate-limit:
+    enabled: true
+    requests-per-minute: 60
+    exclude-paths:
+      - /actuator/health
+      - /error

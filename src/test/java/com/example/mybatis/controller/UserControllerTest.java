@@ -56,6 +56,48 @@ class UserControllerTest {
             assertThat(result.getBody().getData().get(0).getUsername()).isEqualTo("jane");
             verify(userService).findAll(0, 10, null, null);
         }
+
+        @Test
+        @DisplayName("pagination first is true when page is 0")
+        void firstTrueWhenPageZero() {
+            UserResponse user = new UserResponse(1L, "a", "a@example.com", true, null, null, List.of());
+            PageResponse<UserResponse> pr = new PageResponse<>(List.of(user), 25, 10, 0);
+            when(userService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<UserResponse>>> result = userController.list(0, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isTrue();
+            assertThat(result.getBody().getPagination().isLast()).isFalse();
+            assertThat(result.getBody().getPagination().getPageNumber()).isEqualTo(1);
+            assertThat(result.getBody().getPagination().getTotalPages()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("pagination last is true when on last page")
+        void lastTrueWhenOnLastPage() {
+            UserResponse user = new UserResponse(3L, "c", "c@example.com", true, null, null, List.of());
+            PageResponse<UserResponse> pr = new PageResponse<>(List.of(user), 25, 10, 2);
+            when(userService.findAll(2, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<UserResponse>>> result = userController.list(2, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isFalse();
+            assertThat(result.getBody().getPagination().isLast()).isTrue();
+            assertThat(result.getBody().getPagination().getPageNumber()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("pagination first and last true when single page")
+        void firstAndLastTrueWhenSinglePage() {
+            UserResponse user = new UserResponse(1L, "a", "a@example.com", true, null, null, List.of());
+            PageResponse<UserResponse> pr = new PageResponse<>(List.of(user), 1, 10, 0);
+            when(userService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<UserResponse>>> result = userController.list(0, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isTrue();
+            assertThat(result.getBody().getPagination().isLast()).isTrue();
+        }
     }
 
     @Nested

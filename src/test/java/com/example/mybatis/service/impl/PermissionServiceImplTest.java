@@ -4,6 +4,7 @@ import com.example.mybatis.dto.request.PermissionCreateRequest;
 import com.example.mybatis.dto.request.PermissionUpdateRequest;
 import com.example.mybatis.dto.response.PermissionResponse;
 import com.example.mybatis.entity.Permission;
+import com.example.mybatis.exception.BadRequestException;
 import com.example.mybatis.exception.ResourceNotFoundException;
 import com.example.mybatis.mapper.PermissionMapper;
 import com.example.mybatis.mapper.dto.PermissionDtoMapper;
@@ -112,6 +113,20 @@ class PermissionServiceImplTest {
             });
 
             permissionService.create(request);
+
+            verify(permissionMapper).insert(any(Permission.class));
+        }
+
+        @Test
+        @DisplayName("throws BadRequestException when insert returns 0")
+        void insertFails() {
+            PermissionCreateRequest request = new PermissionCreateRequest("X", "Y", null);
+            when(permissionDtoMapper.toEntity(request)).thenReturn(new Permission(null, "X", "Y", null));
+            when(permissionMapper.insert(any(Permission.class))).thenReturn(0);
+
+            assertThatThrownBy(() -> permissionService.create(request))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessage("Permission creation failed");
 
             verify(permissionMapper).insert(any(Permission.class));
         }

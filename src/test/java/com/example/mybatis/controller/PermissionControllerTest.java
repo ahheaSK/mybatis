@@ -55,6 +55,48 @@ class PermissionControllerTest {
             assertThat(result.getBody().getData().get(0).getCode()).isEqualTo("READ");
             verify(permissionService).findAll(0, 10, null, null);
         }
+
+        @Test
+        @DisplayName("pagination first is true when page is 0")
+        void firstTrueWhenPageZero() {
+            List<PermissionResponse> content = List.of(new PermissionResponse(1L, "A", "Perm A", null));
+            PageResponse<PermissionResponse> pr = new PageResponse<>(content, 25, 10, 0);
+            when(permissionService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<PermissionResponse>>> result = permissionController.list(0, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isTrue();
+            assertThat(result.getBody().getPagination().isLast()).isFalse();
+            assertThat(result.getBody().getPagination().getPageNumber()).isEqualTo(1);
+            assertThat(result.getBody().getPagination().getTotalPages()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("pagination last is true when on last page")
+        void lastTrueWhenOnLastPage() {
+            List<PermissionResponse> content = List.of(new PermissionResponse(3L, "C", "Perm C", null));
+            PageResponse<PermissionResponse> pr = new PageResponse<>(content, 25, 10, 2);
+            when(permissionService.findAll(2, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<PermissionResponse>>> result = permissionController.list(2, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isFalse();
+            assertThat(result.getBody().getPagination().isLast()).isTrue();
+            assertThat(result.getBody().getPagination().getPageNumber()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("pagination first and last true when single page")
+        void firstAndLastTrueWhenSinglePage() {
+            List<PermissionResponse> content = List.of(new PermissionResponse(1L, "A", "Perm A", null));
+            PageResponse<PermissionResponse> pr = new PageResponse<>(content, 1, 10, 0);
+            when(permissionService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<PermissionResponse>>> result = permissionController.list(0, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isTrue();
+            assertThat(result.getBody().getPagination().isLast()).isTrue();
+        }
     }
 
     @Nested

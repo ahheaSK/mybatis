@@ -57,6 +57,48 @@ class RoleControllerTest {
             assertThat(result.getBody().getData().get(0).getCode()).isEqualTo("ADMIN");
             verify(roleService).findAll(0, 10, null, null);
         }
+
+        @Test
+        @DisplayName("pagination first is true when page is 0")
+        void firstTrueWhenPageZero() {
+            List<RoleResponse> content = List.of(new RoleResponse(1L, "A", "Role A", null));
+            PageResponse<RoleResponse> pr = new PageResponse<>(content, 25, 10, 0);
+            when(roleService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<RoleResponse>>> result = roleController.list(0, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isTrue();
+            assertThat(result.getBody().getPagination().isLast()).isFalse();
+            assertThat(result.getBody().getPagination().getPageNumber()).isEqualTo(1);
+            assertThat(result.getBody().getPagination().getTotalPages()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("pagination last is true when on last page")
+        void lastTrueWhenOnLastPage() {
+            List<RoleResponse> content = List.of(new RoleResponse(3L, "C", "Role C", null));
+            PageResponse<RoleResponse> pr = new PageResponse<>(content, 25, 10, 2);
+            when(roleService.findAll(2, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<RoleResponse>>> result = roleController.list(2, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isFalse();
+            assertThat(result.getBody().getPagination().isLast()).isTrue();
+            assertThat(result.getBody().getPagination().getPageNumber()).isEqualTo(3);
+        }
+
+        @Test
+        @DisplayName("pagination first and last true when single page")
+        void firstAndLastTrueWhenSinglePage() {
+            List<RoleResponse> content = List.of(new RoleResponse(1L, "A", "Role A", null));
+            PageResponse<RoleResponse> pr = new PageResponse<>(content, 1, 10, 0);
+            when(roleService.findAll(0, 10, null, null)).thenReturn(pr);
+
+            ResponseEntity<ApiResponse<List<RoleResponse>>> result = roleController.list(0, 10, null, null);
+
+            assertThat(result.getBody().getPagination().isFirst()).isTrue();
+            assertThat(result.getBody().getPagination().isLast()).isTrue();
+        }
     }
 
     @Nested

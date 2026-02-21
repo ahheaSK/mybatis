@@ -1,5 +1,6 @@
 package com.example.mybatis.controller;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.request.PermissionCreateRequest;
 import com.example.mybatis.dto.request.PermissionUpdateRequest;
 import com.example.mybatis.dto.response.ApiResponse;
@@ -55,7 +56,7 @@ public class PermissionController {
         return ResponseEntity.ok(ApiResponse.successWithPage(
                 pr.getContent(),
                 pagination,
-                "Get All With Pagination Data Successfully",
+                ApiMessages.PAGINATION_SUCCESS,
                 200
         ));
     }
@@ -65,7 +66,7 @@ public class PermissionController {
     public ResponseEntity<ApiResponse<PermissionResponse>> getOne(
             @Parameter(description = "Permission ID") @PathVariable Long id) {
         log.debug("getOne permission id={}", id);
-        return ResponseEntity.ok(ApiResponse.success(permissionService.findById(id), "Get permission successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(permissionService.findById(id), ApiMessages.GET_ONE_SUCCESS, 200));
     }
 
     @Operation(summary = "Create permission")
@@ -73,7 +74,7 @@ public class PermissionController {
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody PermissionCreateRequest request) {
         log.info("create permission code={}", request.getCode());
         permissionService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Permission created successfully", 201));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, ApiMessages.CREATED_SUCCESS, 201));
     }
 
     @Operation(summary = "Update permission", description = "Updates only non-null fields")
@@ -84,7 +85,7 @@ public class PermissionController {
     ) {
         log.info("update permission id={}", id);
         permissionService.update(id, request);
-        return ResponseEntity.ok(ApiResponse.success(null, "Permission updated successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.UPDATED_SUCCESS, 200));
     }
 
     @Operation(summary = "Delete permission")
@@ -93,6 +94,6 @@ public class PermissionController {
             @Parameter(description = "Permission ID") @PathVariable Long id) {
         log.info("delete permission id={}", id);
         permissionService.deleteById(id);
-        return ResponseEntity.ok(ApiResponse.success(null, "Permission deleted successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.DELETED_SUCCESS, 200));
     }
 }

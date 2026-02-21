@@ -1751,3 +1751,830 @@ java.lang.IllegalStateException: ApplicationContext failure threshold (1) exceed
 2026-02-21 13:51:18.618  INFO 18233 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
 2026-02-21 13:51:18.625  INFO 18233 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-21 13:51:18.628  INFO 18233 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-21 13:52:22.679  INFO 20638 --- [           main] c.e.mybatis.MybatisApplicationTest       : Starting MybatisApplicationTest using Java 23.0.1 with PID 20638 (started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:22.680 DEBUG 20638 --- [           main] c.e.mybatis.MybatisApplicationTest       : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:52:22.680  INFO 20638 --- [           main] c.e.mybatis.MybatisApplicationTest       : The following 1 profile is active: "dev"
+2026-02-21 13:52:23.457  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-21 13:52:23.654  INFO 20638 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@76ccefaf
+2026-02-21 13:52:23.655  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-21 13:52:23.802  INFO 20638 --- [           main] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:24.086  INFO 20638 --- [           main] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-02-21 13:52:24.120  INFO 20638 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:24.163  INFO 20638 --- [           main] liquibase.snapshot                       : Creating snapshot
+2026-02-21 13:52:24.453  INFO 20638 --- [           main] liquibase.lockservice                    : Successfully acquired change log lock
+2026-02-21 13:52:24.456  INFO 20638 --- [           main] liquibase.command                        : Using deploymentId: 1656743441
+2026-02-21 13:52:24.460  INFO 20638 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:24.491  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::001-create-menu::app
+2026-02-21 13:52:24.504  INFO 20638 --- [           main] liquibase.changelog                      : Table menu created
+2026-02-21 13:52:24.508  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to menu (parent_id)
+2026-02-21 13:52:24.510  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::001-create-menu::app ran successfully in 16ms
+2026-02-21 13:52:24.516  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::002-create-permission::app
+2026-02-21 13:52:24.523  INFO 20638 --- [           main] liquibase.changelog                      : Table permission created
+2026-02-21 13:52:24.524  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::002-create-permission::app ran successfully in 7ms
+2026-02-21 13:52:24.527  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::003-create-role::app
+2026-02-21 13:52:24.532  INFO 20638 --- [           main] liquibase.changelog                      : Table role created
+2026-02-21 13:52:24.534  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::003-create-role::app ran successfully in 6ms
+2026-02-21 13:52:24.537  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::004-create-role-permission::app
+2026-02-21 13:52:24.540  INFO 20638 --- [           main] liquibase.changelog                      : Table role_permission created
+2026-02-21 13:52:24.542  INFO 20638 --- [           main] liquibase.changelog                      : Primary key added to role_permission (role_id, permission_id)
+2026-02-21 13:52:24.544  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (role_id)
+2026-02-21 13:52:24.546  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (permission_id)
+2026-02-21 13:52:24.547  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::004-create-role-permission::app ran successfully in 10ms
+2026-02-21 13:52:24.550  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::005-create-role-menu::app
+2026-02-21 13:52:24.554  INFO 20638 --- [           main] liquibase.changelog                      : Table role_menu created
+2026-02-21 13:52:24.557  INFO 20638 --- [           main] liquibase.changelog                      : Primary key added to role_menu (role_id, menu_id)
+2026-02-21 13:52:24.559  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (role_id)
+2026-02-21 13:52:24.561  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (menu_id)
+2026-02-21 13:52:24.562  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::005-create-role-menu::app ran successfully in 11ms
+2026-02-21 13:52:24.566  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::006-create-user::app
+2026-02-21 13:52:24.572  INFO 20638 --- [           main] liquibase.changelog                      : Table user created
+2026-02-21 13:52:24.573  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::006-create-user::app ran successfully in 6ms
+2026-02-21 13:52:24.577  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::007-create-user-role::app
+2026-02-21 13:52:24.582  INFO 20638 --- [           main] liquibase.changelog                      : Table user_role created
+2026-02-21 13:52:24.586  INFO 20638 --- [           main] liquibase.changelog                      : Primary key added to user_role (user_id, role_id)
+2026-02-21 13:52:24.589  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (user_id)
+2026-02-21 13:52:24.590  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (role_id)
+2026-02-21 13:52:24.591  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::007-create-user-role::app ran successfully in 14ms
+2026-02-21 13:52:24.594  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::008-create-indexes::app
+2026-02-21 13:52:24.598  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_role_code created
+2026-02-21 13:52:24.600  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_permission_code created
+2026-02-21 13:52:24.602  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_menu_parent created
+2026-02-21 13:52:24.603  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_user_username created
+2026-02-21 13:52:24.604  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::008-create-indexes::app ran successfully in 10ms
+2026-02-21 13:52:24.607  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-001-menus::app
+2026-02-21 13:52:24.623  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.624  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-001-menus::app ran successfully in 17ms
+2026-02-21 13:52:24.626  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-002-permissions::app
+2026-02-21 13:52:24.631  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.632  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-002-permissions::app ran successfully in 6ms
+2026-02-21 13:52:24.635  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-003-roles::app
+2026-02-21 13:52:24.640  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.641  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-003-roles::app ran successfully in 5ms
+2026-02-21 13:52:24.643  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-004-role-menu::app
+2026-02-21 13:52:24.648  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.651  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.653  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.653  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-004-role-menu::app ran successfully in 9ms
+2026-02-21 13:52:24.656  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-005-role-permission::app
+2026-02-21 13:52:24.659  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.661  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.665  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.670  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-005-role-permission::app ran successfully in 14ms
+2026-02-21 13:52:24.674  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-006-user-admin::app
+2026-02-21 13:52:24.677  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.678  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-006-user-admin::app ran successfully in 4ms
+2026-02-21 13:52:24.679  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-007-user-role-admin::app
+2026-02-21 13:52:24.683  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.683  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-007-user-role-admin::app ran successfully in 3ms
+2026-02-21 13:52:24.685  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app
+2026-02-21 13:52:24.688  INFO 20638 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to role
+2026-02-21 13:52:24.689  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app ran successfully in 4ms
+2026-02-21 13:52:24.691  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app
+2026-02-21 13:52:24.693  INFO 20638 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to permission
+2026-02-21 13:52:24.694  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app ran successfully in 3ms
+2026-02-21 13:52:24.697  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app
+2026-02-21 13:52:24.700  INFO 20638 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to menu
+2026-02-21 13:52:24.701  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app ran successfully in 3ms
+2026-02-21 13:52:24.704  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app
+2026-02-21 13:52:24.708  INFO 20638 --- [           main] liquibase.changelog                      : Column role.username renamed to ousername
+2026-02-21 13:52:24.708  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app ran successfully in 4ms
+2026-02-21 13:52:24.710  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app
+2026-02-21 13:52:24.712  INFO 20638 --- [           main] liquibase.changelog                      : Column permission.username renamed to ousername
+2026-02-21 13:52:24.712  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app ran successfully in 2ms
+2026-02-21 13:52:24.715  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app
+2026-02-21 13:52:24.717  INFO 20638 --- [           main] liquibase.changelog                      : Columns ousername(VARCHAR(100)) added to user
+2026-02-21 13:52:24.717  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app ran successfully in 2ms
+2026-02-21 13:52:24.719  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app
+2026-02-21 13:52:24.722  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.723  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:24.724  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app ran successfully in 5ms
+2026-02-21 13:52:24.730  INFO 20638 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:24.730  INFO 20638 --- [           main] liquibase.util                           : Run:                         22
+2026-02-21 13:52:24.730  INFO 20638 --- [           main] liquibase.util                           : Previously run:               0
+2026-02-21 13:52:24.731  INFO 20638 --- [           main] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:24.731  INFO 20638 --- [           main] liquibase.util                           : -------------------------------
+2026-02-21 13:52:24.731  INFO 20638 --- [           main] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:24.731  INFO 20638 --- [           main] liquibase.util                           : Update summary generated
+2026-02-21 13:52:24.734  INFO 20638 --- [           main] liquibase.command                        : Update command completed successfully.
+2026-02-21 13:52:24.734  INFO 20638 --- [           main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 56
+2026-02-21 13:52:24.737  INFO 20638 --- [           main] liquibase.lockservice                    : Successfully released change log lock
+2026-02-21 13:52:24.738  INFO 20638 --- [           main] liquibase.command                        : Command execution complete
+2026-02-21 13:52:30.099  INFO 20638 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:30.611  INFO 20638 --- [           main] c.e.mybatis.MybatisApplicationTest       : Started MybatisApplicationTest in 8.338 seconds (process running for 12.372)
+2026-02-21 13:52:31.235  INFO 20638 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-02-21 13:52:31.260  INFO 20638 --- [           main] o.a.maven.surefire.booter.ForkedBooter   : Starting ForkedBooter v3.5.4 using Java 23.0.1 with PID 20638 (started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:31.261  INFO 20638 --- [           main] o.a.maven.surefire.booter.ForkedBooter   : The following 1 profile is active: "dev"
+2026-02-21 13:52:31.423  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-02-21 13:52:31.447  INFO 20638 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@31240ef6
+2026-02-21 13:52:31.447  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-02-21 13:52:31.464  INFO 20638 --- [           main] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:31.509  INFO 20638 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:31.556  INFO 20638 --- [           main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-02-21 13:52:31.558  INFO 20638 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : Run:                          0
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : Previously run:              22
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : -------------------------------
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.util                           : Update summary generated
+2026-02-21 13:52:31.565  INFO 20638 --- [           main] liquibase.command                        : Command execution complete
+2026-02-21 13:52:31.619  INFO 20638 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:31.674  INFO 20638 --- [           main] o.a.maven.surefire.booter.ForkedBooter   : Started ForkedBooter in 0.439 seconds (process running for 13.434)
+2026-02-21 13:52:31.730  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-02-21 13:52:31.735  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-02-21 13:52:31.778  INFO 20638 --- [       Thread-8] com.example.mybatis.MybatisApplication   : Starting MybatisApplication using Java 23.0.1 with PID 20638 (/Users/_jan_codes_/Desktop/my-mybatis/demo/target/classes started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:31.779 DEBUG 20638 --- [       Thread-8] com.example.mybatis.MybatisApplication   : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:52:31.779  INFO 20638 --- [       Thread-8] com.example.mybatis.MybatisApplication   : The following 1 profile is active: "dev"
+2026-02-21 13:52:31.901  INFO 20638 --- [       Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-02-21 13:52:31.915  INFO 20638 --- [       Thread-8] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@630437e9
+2026-02-21 13:52:31.915  INFO 20638 --- [       Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-02-21 13:52:31.925  INFO 20638 --- [       Thread-8] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:31.959  INFO 20638 --- [       Thread-8] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:31.986  INFO 20638 --- [       Thread-8] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : Run:                          0
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : Previously run:              22
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : -------------------------------
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.util                           : Update summary generated
+2026-02-21 13:52:31.990  INFO 20638 --- [       Thread-8] liquibase.command                        : Command execution complete
+2026-02-21 13:52:32.029  INFO 20638 --- [       Thread-8] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:32.067  INFO 20638 --- [       Thread-8] com.example.mybatis.MybatisApplication   : Started MybatisApplication in 0.315 seconds (process running for 13.827)
+2026-02-21 13:52:35.765  WARN 20638 --- [           main] o.j.j.e.d.AbstractExtensionContext       : Type implements CloseableResource but not AutoCloseable: org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter
+2026-02-21 13:52:36.534  INFO 20638 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.mybatis.security.SecurityConfigTest]: SecurityConfigTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-02-21 13:52:36.545  INFO 20638 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.mybatis.MybatisApplication for test class com.example.mybatis.security.SecurityConfigTest
+2026-02-21 13:52:36.547  INFO 20638 --- [           main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-02-21 13:52:36.609  INFO 20638 --- [           main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: 313afb4dbd3204d0e9a05bddbe32daa2f3c273c1f8cc117458e34e4bd9178506
+2026-02-21 13:52:37.761  INFO 20638 --- [           main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.214473S
+2026-02-21 13:52:37.763  INFO 20638 --- [           main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:62933/testdb?loggerLevel=OFF)
+2026-02-21 13:52:37.772  INFO 20638 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-02-21 13:52:37.811  INFO 20638 --- [           main] c.e.mybatis.security.SecurityConfigTest  : Starting SecurityConfigTest using Java 23.0.1 with PID 20638 (started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:37.813 DEBUG 20638 --- [           main] c.e.mybatis.security.SecurityConfigTest  : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:52:37.814  INFO 20638 --- [           main] c.e.mybatis.security.SecurityConfigTest  : The following 1 profile is active: "dev"
+2026-02-21 13:52:37.944  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-02-21 13:52:37.972  INFO 20638 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@2da427e6
+2026-02-21 13:52:37.972  INFO 20638 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-02-21 13:52:37.981  INFO 20638 --- [           main] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:38.012  INFO 20638 --- [           main] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-02-21 13:52:38.031  INFO 20638 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:38.058  INFO 20638 --- [           main] liquibase.snapshot                       : Creating snapshot
+2026-02-21 13:52:38.096  INFO 20638 --- [           main] liquibase.lockservice                    : Successfully acquired change log lock
+2026-02-21 13:52:38.098  INFO 20638 --- [           main] liquibase.command                        : Using deploymentId: 1656743441
+2026-02-21 13:52:38.100  INFO 20638 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:38.112  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::001-create-menu::app
+2026-02-21 13:52:38.126  INFO 20638 --- [           main] liquibase.changelog                      : Table menu created
+2026-02-21 13:52:38.128  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to menu (parent_id)
+2026-02-21 13:52:38.129  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::001-create-menu::app ran successfully in 17ms
+2026-02-21 13:52:38.132  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::002-create-permission::app
+2026-02-21 13:52:38.136  INFO 20638 --- [           main] liquibase.changelog                      : Table permission created
+2026-02-21 13:52:38.136  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::002-create-permission::app ran successfully in 4ms
+2026-02-21 13:52:38.138  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::003-create-role::app
+2026-02-21 13:52:38.142  INFO 20638 --- [           main] liquibase.changelog                      : Table role created
+2026-02-21 13:52:38.142  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::003-create-role::app ran successfully in 4ms
+2026-02-21 13:52:38.144  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::004-create-role-permission::app
+2026-02-21 13:52:38.146  INFO 20638 --- [           main] liquibase.changelog                      : Table role_permission created
+2026-02-21 13:52:38.147  INFO 20638 --- [           main] liquibase.changelog                      : Primary key added to role_permission (role_id, permission_id)
+2026-02-21 13:52:38.149  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (role_id)
+2026-02-21 13:52:38.150  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (permission_id)
+2026-02-21 13:52:38.151  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::004-create-role-permission::app ran successfully in 7ms
+2026-02-21 13:52:38.153  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::005-create-role-menu::app
+2026-02-21 13:52:38.156  INFO 20638 --- [           main] liquibase.changelog                      : Table role_menu created
+2026-02-21 13:52:38.157  INFO 20638 --- [           main] liquibase.changelog                      : Primary key added to role_menu (role_id, menu_id)
+2026-02-21 13:52:38.158  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (role_id)
+2026-02-21 13:52:38.160  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (menu_id)
+2026-02-21 13:52:38.160  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::005-create-role-menu::app ran successfully in 6ms
+2026-02-21 13:52:38.162  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::006-create-user::app
+2026-02-21 13:52:38.167  INFO 20638 --- [           main] liquibase.changelog                      : Table user created
+2026-02-21 13:52:38.167  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::006-create-user::app ran successfully in 4ms
+2026-02-21 13:52:38.170  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::007-create-user-role::app
+2026-02-21 13:52:38.171  INFO 20638 --- [           main] liquibase.changelog                      : Table user_role created
+2026-02-21 13:52:38.173  INFO 20638 --- [           main] liquibase.changelog                      : Primary key added to user_role (user_id, role_id)
+2026-02-21 13:52:38.174  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (user_id)
+2026-02-21 13:52:38.176  INFO 20638 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (role_id)
+2026-02-21 13:52:38.176  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::007-create-user-role::app ran successfully in 6ms
+2026-02-21 13:52:38.179  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::008-create-indexes::app
+2026-02-21 13:52:38.181  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_role_code created
+2026-02-21 13:52:38.182  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_permission_code created
+2026-02-21 13:52:38.183  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_menu_parent created
+2026-02-21 13:52:38.184  INFO 20638 --- [           main] liquibase.changelog                      : Index idx_user_username created
+2026-02-21 13:52:38.185  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::008-create-indexes::app ran successfully in 6ms
+2026-02-21 13:52:38.188  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-001-menus::app
+2026-02-21 13:52:38.191  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.191  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-001-menus::app ran successfully in 3ms
+2026-02-21 13:52:38.193  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-002-permissions::app
+2026-02-21 13:52:38.196  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.197  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-002-permissions::app ran successfully in 4ms
+2026-02-21 13:52:38.199  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-003-roles::app
+2026-02-21 13:52:38.201  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.202  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-003-roles::app ran successfully in 3ms
+2026-02-21 13:52:38.206  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-004-role-menu::app
+2026-02-21 13:52:38.209  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.211  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.212  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.213  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-004-role-menu::app ran successfully in 7ms
+2026-02-21 13:52:38.215  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-005-role-permission::app
+2026-02-21 13:52:38.217  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.219  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.220  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.220  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-005-role-permission::app ran successfully in 5ms
+2026-02-21 13:52:38.222  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-006-user-admin::app
+2026-02-21 13:52:38.224  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.224  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-006-user-admin::app ran successfully in 2ms
+2026-02-21 13:52:38.226  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-007-user-role-admin::app
+2026-02-21 13:52:38.228  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.228  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-007-user-role-admin::app ran successfully in 2ms
+2026-02-21 13:52:38.230  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app
+2026-02-21 13:52:38.232  INFO 20638 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to role
+2026-02-21 13:52:38.233  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app ran successfully in 3ms
+2026-02-21 13:52:38.235  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app
+2026-02-21 13:52:38.236  INFO 20638 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to permission
+2026-02-21 13:52:38.237  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app ran successfully in 2ms
+2026-02-21 13:52:38.238  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app
+2026-02-21 13:52:38.239  INFO 20638 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to menu
+2026-02-21 13:52:38.240  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app ran successfully in 2ms
+2026-02-21 13:52:38.241  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app
+2026-02-21 13:52:38.243  INFO 20638 --- [           main] liquibase.changelog                      : Column role.username renamed to ousername
+2026-02-21 13:52:38.243  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app ran successfully in 2ms
+2026-02-21 13:52:38.244  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app
+2026-02-21 13:52:38.246  INFO 20638 --- [           main] liquibase.changelog                      : Column permission.username renamed to ousername
+2026-02-21 13:52:38.246  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app ran successfully in 1ms
+2026-02-21 13:52:38.248  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app
+2026-02-21 13:52:38.250  INFO 20638 --- [           main] liquibase.changelog                      : Columns ousername(VARCHAR(100)) added to user
+2026-02-21 13:52:38.250  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app ran successfully in 2ms
+2026-02-21 13:52:38.252  INFO 20638 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app
+2026-02-21 13:52:38.254  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.255  INFO 20638 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:38.255  INFO 20638 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app ran successfully in 3ms
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : Run:                         22
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : Previously run:               0
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : -------------------------------
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:38.257  INFO 20638 --- [           main] liquibase.util                           : Update summary generated
+2026-02-21 13:52:38.258  INFO 20638 --- [           main] liquibase.command                        : Update command completed successfully.
+2026-02-21 13:52:38.258  INFO 20638 --- [           main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 56
+2026-02-21 13:52:38.259  INFO 20638 --- [           main] liquibase.lockservice                    : Successfully released change log lock
+2026-02-21 13:52:38.260  INFO 20638 --- [           main] liquibase.command                        : Command execution complete
+2026-02-21 13:52:38.303  INFO 20638 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:38.345  INFO 20638 --- [           main] c.e.mybatis.security.SecurityConfigTest  : Started SecurityConfigTest in 0.574 seconds (process running for 20.106)
+2026-02-21 13:52:39.020 DEBUG 20638 --- [           main] c.e.mybatis.controller.UserController    : list users page=0, size=10, name=null, email=null
+2026-02-21 13:52:39.106 DEBUG 20638 --- [           main] c.e.mybatis.controller.UserController    : list users page=0, size=10, name=null, email=null
+2026-02-21 13:52:39.111 DEBUG 20638 --- [           main] c.e.mybatis.controller.UserController    : list users page=2, size=10, name=null, email=null
+2026-02-21 13:52:39.121 DEBUG 20638 --- [           main] c.e.mybatis.controller.UserController    : list users page=0, size=10, name=null, email=null
+2026-02-21 13:52:39.129  INFO 20638 --- [           main] c.e.mybatis.controller.UserController    : create user username=newuser
+2026-02-21 13:52:39.138  INFO 20638 --- [           main] c.e.mybatis.controller.UserController    : delete user id=1
+2026-02-21 13:52:39.147 DEBUG 20638 --- [           main] c.e.mybatis.controller.UserController    : getOne user id=1
+2026-02-21 13:52:39.151 DEBUG 20638 --- [           main] c.e.mybatis.controller.UserController    : getOne user id=999
+2026-02-21 13:52:39.157  INFO 20638 --- [           main] c.e.mybatis.controller.UserController    : update user id=1
+2026-02-21 13:52:39.189  INFO 20638 --- [           main] c.e.mybatis.controller.RoleController    : delete role id=1
+2026-02-21 13:52:39.194 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.196 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.200 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=2, size=10, code=null, name=null
+2026-02-21 13:52:39.206 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.210  INFO 20638 --- [           main] c.e.mybatis.controller.RoleController    : update role id=1
+2026-02-21 13:52:39.215  INFO 20638 --- [           main] c.e.mybatis.controller.RoleController    : create role code=NEW
+2026-02-21 13:52:39.218 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : getOne role id=1
+2026-02-21 13:52:39.219 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : getOne role id=999
+2026-02-21 13:52:39.224  INFO 20638 --- [           main] c.e.mybatis.controller.RoleController    : assignMenus roleId=1
+2026-02-21 13:52:39.228  INFO 20638 --- [           main] c.e.mybatis.controller.RoleController    : assignMenus roleId=1
+2026-02-21 13:52:39.234 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : getMenusByRole roleId=1
+2026-02-21 13:52:39.239 DEBUG 20638 --- [           main] c.e.mybatis.controller.RoleController    : getMenusByRole roleId=999
+2026-02-21 13:52:39.261 DEBUG 20638 --- [           main] c.e.m.controller.PermissionController    : list permissions page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.264 DEBUG 20638 --- [           main] c.e.m.controller.PermissionController    : list permissions page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.267 DEBUG 20638 --- [           main] c.e.m.controller.PermissionController    : list permissions page=2, size=10, code=null, name=null
+2026-02-21 13:52:39.270 DEBUG 20638 --- [           main] c.e.m.controller.PermissionController    : list permissions page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.274  INFO 20638 --- [           main] c.e.m.controller.PermissionController    : create permission code=NEW
+2026-02-21 13:52:39.277  INFO 20638 --- [           main] c.e.m.controller.PermissionController    : delete permission id=1
+2026-02-21 13:52:39.280 DEBUG 20638 --- [           main] c.e.m.controller.PermissionController    : getOne permission id=1
+2026-02-21 13:52:39.283 DEBUG 20638 --- [           main] c.e.m.controller.PermissionController    : getOne permission id=999
+2026-02-21 13:52:39.286  INFO 20638 --- [           main] c.e.m.controller.PermissionController    : update permission id=1
+2026-02-21 13:52:39.304  INFO 20638 --- [           main] c.e.mybatis.controller.MenuController    : create menu name=New Menu
+2026-02-21 13:52:39.309  INFO 20638 --- [           main] c.e.mybatis.controller.MenuController    : delete menu id=1
+2026-02-21 13:52:39.312 DEBUG 20638 --- [           main] c.e.mybatis.controller.MenuController    : getOne menu id=1
+2026-02-21 13:52:39.314 DEBUG 20638 --- [           main] c.e.mybatis.controller.MenuController    : getOne menu id=999
+2026-02-21 13:52:39.320  INFO 20638 --- [           main] c.e.mybatis.controller.MenuController    : update menu id=1
+2026-02-21 13:52:39.324 DEBUG 20638 --- [           main] c.e.mybatis.controller.MenuController    : list menus page=0, size=10, name=null, path=null, parentId=null
+2026-02-21 13:52:39.362  INFO 20638 --- [           main] c.e.mybatis.controller.AuthController    : login attempt username=testuser
+2026-02-21 13:52:39.364  INFO 20638 --- [           main] c.e.mybatis.controller.AuthController    : login success userId=1 username=testuser
+2026-02-21 13:52:39.368  INFO 20638 --- [           main] c.e.mybatis.controller.AuthController    : login attempt username=bad
+2026-02-21 13:52:39.545  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu name=New Menu
+2026-02-21 13:52:39.545  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu success id=null name=New Menu
+2026-02-21 13:52:39.547  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu name=X
+2026-02-21 13:52:39.547 ERROR 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu failed name=X
+2026-02-21 13:52:39.550  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu id=1
+2026-02-21 13:52:39.550  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu success id=1
+2026-02-21 13:52:39.552  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu id=999
+2026-02-21 13:52:39.552  WARN 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu not found id=999
+2026-02-21 13:52:39.554 DEBUG 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll page=0, size=10, name=null, path=null, parentId=null
+2026-02-21 13:52:39.554  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll menus returned 1 items, total=1
+2026-02-21 13:52:39.556 DEBUG 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll page=4, size=5, name=Admin, path=/admin, parentId=1
+2026-02-21 13:52:39.556  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll menus returned 0 items, total=0
+2026-02-21 13:52:39.559  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu id=1
+2026-02-21 13:52:39.559  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu success id=1
+2026-02-21 13:52:39.560  INFO 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu id=999
+2026-02-21 13:52:39.560  WARN 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu not found id=999
+2026-02-21 13:52:39.562 DEBUG 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findById menu id=1
+2026-02-21 13:52:39.564 DEBUG 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findById menu id=999
+2026-02-21 13:52:39.565  WARN 20638 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findById menu not found id=999
+2026-02-21 13:52:39.633  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user id=1
+2026-02-21 13:52:39.634  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user success id=1
+2026-02-21 13:52:39.650  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user id=999
+2026-02-21 13:52:39.654  WARN 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user not found id=999
+2026-02-21 13:52:39.703  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user username=newuser
+2026-02-21 13:52:39.710  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user success id=10 username=newuser
+2026-02-21 13:52:39.734  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user username=x
+2026-02-21 13:52:39.735 ERROR 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user failed insert username=x
+2026-02-21 13:52:39.755 DEBUG 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : findAll page=0, size=10, name=null, email=null
+2026-02-21 13:52:39.761  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : findAll returned 1 users, total=1
+2026-02-21 13:52:39.771  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=1
+2026-02-21 13:52:39.773  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user success id=1
+2026-02-21 13:52:39.777  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=1
+2026-02-21 13:52:39.778  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user success id=1
+2026-02-21 13:52:39.782  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=1
+2026-02-21 13:52:39.786  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user success id=1
+2026-02-21 13:52:39.802  INFO 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=999
+2026-02-21 13:52:39.803  WARN 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user not found id=999
+2026-02-21 13:52:39.807 DEBUG 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : findById id=1
+2026-02-21 13:52:39.812 DEBUG 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : findById id=999
+2026-02-21 13:52:39.812  WARN 20638 --- [           main] c.e.m.service.impl.UserServiceImpl       : findById user not found id=999
+2026-02-21 13:52:39.819  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission code=NEW_CODE
+2026-02-21 13:52:39.820  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission success id=2 code=NEW_CODE
+2026-02-21 13:52:39.825  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission code=X
+2026-02-21 13:52:39.825 ERROR 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission failed code=X
+2026-02-21 13:52:39.830  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission id=1
+2026-02-21 13:52:39.831  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission success id=1
+2026-02-21 13:52:39.835  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission id=999
+2026-02-21 13:52:39.835  WARN 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission not found id=999
+2026-02-21 13:52:39.842 DEBUG 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findById permission id=1
+2026-02-21 13:52:39.845 DEBUG 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findById permission id=999
+2026-02-21 13:52:39.845  WARN 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findById permission not found id=999
+2026-02-21 13:52:39.850  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission id=1
+2026-02-21 13:52:39.850  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission success id=1
+2026-02-21 13:52:39.854  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission id=999
+2026-02-21 13:52:39.854  WARN 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission not found id=999
+2026-02-21 13:52:39.858 DEBUG 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findAll page=0, size=10, code=null, name=null
+2026-02-21 13:52:39.859  INFO 20638 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findAll permissions returned 1 items, total=1
+2026-02-21 13:52:39.878  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role id=2
+2026-02-21 13:52:39.878  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role success id=2
+2026-02-21 13:52:39.881  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role id=999
+2026-02-21 13:52:39.881  WARN 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role not found id=999
+2026-02-21 13:52:39.887  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role id=1
+2026-02-21 13:52:39.887  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role success id=1
+2026-02-21 13:52:39.889  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role id=999
+2026-02-21 13:52:39.889  WARN 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role not found id=999
+2026-02-21 13:52:39.892  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=1, menuIdsCount=2
+2026-02-21 13:52:39.893  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole success roleId=1
+2026-02-21 13:52:39.894  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=1, menuIdsCount=0
+2026-02-21 13:52:39.894  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole success roleId=1
+2026-02-21 13:52:39.895  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=999, menuIdsCount=1
+2026-02-21 13:52:39.895  WARN 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole role not found roleId=999
+2026-02-21 13:52:39.897  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=1, menuIdsCount=1
+2026-02-21 13:52:39.906 DEBUG 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : findById role id=1
+2026-02-21 13:52:39.908 DEBUG 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : findById role id=999
+2026-02-21 13:52:39.908  WARN 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : findById role not found id=999
+2026-02-21 13:52:39.911 DEBUG 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : getMenusByRoleId roleId=1
+2026-02-21 13:52:39.913 DEBUG 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : getMenusByRoleId roleId=999
+2026-02-21 13:52:39.913  WARN 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : getMenusByRoleId role not found roleId=999
+2026-02-21 13:52:39.917  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role code=NEW
+2026-02-21 13:52:39.917  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role success id=null code=NEW
+2026-02-21 13:52:39.919  INFO 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role code=X
+2026-02-21 13:52:39.919 ERROR 20638 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role failed code=X
+2026-02-21 13:52:40.036  INFO 20638 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-21 13:52:40.037  INFO 20638 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-21 13:52:40.180  INFO 20638 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-02-21 13:52:40.181  INFO 20638 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-02-21 13:52:40.182  INFO 20638 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-02-21 13:52:40.183  INFO 20638 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-02-21 13:52:49.165  INFO 20966 --- [           main] c.e.mybatis.MybatisApplicationTest       : Starting MybatisApplicationTest using Java 23.0.1 with PID 20966 (started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:49.166 DEBUG 20966 --- [           main] c.e.mybatis.MybatisApplicationTest       : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:52:49.166  INFO 20966 --- [           main] c.e.mybatis.MybatisApplicationTest       : The following 1 profile is active: "dev"
+2026-02-21 13:52:49.852  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-21 13:52:50.004  INFO 20966 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@638d0527
+2026-02-21 13:52:50.006  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-21 13:52:50.490  INFO 20966 --- [           main] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:50.761  INFO 20966 --- [           main] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-02-21 13:52:50.787  INFO 20966 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:50.824  INFO 20966 --- [           main] liquibase.snapshot                       : Creating snapshot
+2026-02-21 13:52:50.946  INFO 20966 --- [           main] liquibase.lockservice                    : Successfully acquired change log lock
+2026-02-21 13:52:50.947  INFO 20966 --- [           main] liquibase.command                        : Using deploymentId: 1656769837
+2026-02-21 13:52:50.948  INFO 20966 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:50.985  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::001-create-menu::app
+2026-02-21 13:52:50.995  INFO 20966 --- [           main] liquibase.changelog                      : Table menu created
+2026-02-21 13:52:50.999  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to menu (parent_id)
+2026-02-21 13:52:51.000  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::001-create-menu::app ran successfully in 14ms
+2026-02-21 13:52:51.006  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::002-create-permission::app
+2026-02-21 13:52:51.012  INFO 20966 --- [           main] liquibase.changelog                      : Table permission created
+2026-02-21 13:52:51.013  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::002-create-permission::app ran successfully in 6ms
+2026-02-21 13:52:51.015  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::003-create-role::app
+2026-02-21 13:52:51.020  INFO 20966 --- [           main] liquibase.changelog                      : Table role created
+2026-02-21 13:52:51.022  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::003-create-role::app ran successfully in 6ms
+2026-02-21 13:52:51.025  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::004-create-role-permission::app
+2026-02-21 13:52:51.027  INFO 20966 --- [           main] liquibase.changelog                      : Table role_permission created
+2026-02-21 13:52:51.029  INFO 20966 --- [           main] liquibase.changelog                      : Primary key added to role_permission (role_id, permission_id)
+2026-02-21 13:52:51.031  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (role_id)
+2026-02-21 13:52:51.033  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (permission_id)
+2026-02-21 13:52:51.034  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::004-create-role-permission::app ran successfully in 9ms
+2026-02-21 13:52:51.037  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::005-create-role-menu::app
+2026-02-21 13:52:51.039  INFO 20966 --- [           main] liquibase.changelog                      : Table role_menu created
+2026-02-21 13:52:51.041  INFO 20966 --- [           main] liquibase.changelog                      : Primary key added to role_menu (role_id, menu_id)
+2026-02-21 13:52:51.043  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (role_id)
+2026-02-21 13:52:51.045  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (menu_id)
+2026-02-21 13:52:51.046  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::005-create-role-menu::app ran successfully in 9ms
+2026-02-21 13:52:51.049  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::006-create-user::app
+2026-02-21 13:52:51.056  INFO 20966 --- [           main] liquibase.changelog                      : Table user created
+2026-02-21 13:52:51.057  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::006-create-user::app ran successfully in 8ms
+2026-02-21 13:52:51.059  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::007-create-user-role::app
+2026-02-21 13:52:51.062  INFO 20966 --- [           main] liquibase.changelog                      : Table user_role created
+2026-02-21 13:52:51.063  INFO 20966 --- [           main] liquibase.changelog                      : Primary key added to user_role (user_id, role_id)
+2026-02-21 13:52:51.066  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (user_id)
+2026-02-21 13:52:51.067  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (role_id)
+2026-02-21 13:52:51.068  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::007-create-user-role::app ran successfully in 8ms
+2026-02-21 13:52:51.071  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::008-create-indexes::app
+2026-02-21 13:52:51.074  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_role_code created
+2026-02-21 13:52:51.076  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_permission_code created
+2026-02-21 13:52:51.078  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_menu_parent created
+2026-02-21 13:52:51.079  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_user_username created
+2026-02-21 13:52:51.080  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::008-create-indexes::app ran successfully in 9ms
+2026-02-21 13:52:51.082  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-001-menus::app
+2026-02-21 13:52:51.095  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.096  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-001-menus::app ran successfully in 14ms
+2026-02-21 13:52:51.098  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-002-permissions::app
+2026-02-21 13:52:51.103  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.104  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-002-permissions::app ran successfully in 5ms
+2026-02-21 13:52:51.106  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-003-roles::app
+2026-02-21 13:52:51.109  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.109  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-003-roles::app ran successfully in 3ms
+2026-02-21 13:52:51.111  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-004-role-menu::app
+2026-02-21 13:52:51.116  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.118  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.120  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.121  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-004-role-menu::app ran successfully in 10ms
+2026-02-21 13:52:51.123  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-005-role-permission::app
+2026-02-21 13:52:51.129  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.132  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.134  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.135  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-005-role-permission::app ran successfully in 11ms
+2026-02-21 13:52:51.138  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-006-user-admin::app
+2026-02-21 13:52:51.142  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.143  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-006-user-admin::app ran successfully in 5ms
+2026-02-21 13:52:51.147  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-007-user-role-admin::app
+2026-02-21 13:52:51.151  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.152  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-007-user-role-admin::app ran successfully in 5ms
+2026-02-21 13:52:51.155  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app
+2026-02-21 13:52:51.158  INFO 20966 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to role
+2026-02-21 13:52:51.159  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app ran successfully in 4ms
+2026-02-21 13:52:51.163  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app
+2026-02-21 13:52:51.166  INFO 20966 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to permission
+2026-02-21 13:52:51.167  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app ran successfully in 4ms
+2026-02-21 13:52:51.169  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app
+2026-02-21 13:52:51.171  INFO 20966 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to menu
+2026-02-21 13:52:51.172  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app ran successfully in 2ms
+2026-02-21 13:52:51.175  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app
+2026-02-21 13:52:51.177  INFO 20966 --- [           main] liquibase.changelog                      : Column role.username renamed to ousername
+2026-02-21 13:52:51.178  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app ran successfully in 3ms
+2026-02-21 13:52:51.180  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app
+2026-02-21 13:52:51.182  INFO 20966 --- [           main] liquibase.changelog                      : Column permission.username renamed to ousername
+2026-02-21 13:52:51.183  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app ran successfully in 3ms
+2026-02-21 13:52:51.185  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app
+2026-02-21 13:52:51.187  INFO 20966 --- [           main] liquibase.changelog                      : Columns ousername(VARCHAR(100)) added to user
+2026-02-21 13:52:51.188  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app ran successfully in 3ms
+2026-02-21 13:52:51.190  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app
+2026-02-21 13:52:51.193  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.194  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:52:51.195  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app ran successfully in 5ms
+2026-02-21 13:52:51.201  INFO 20966 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:51.201  INFO 20966 --- [           main] liquibase.util                           : Run:                         22
+2026-02-21 13:52:51.201  INFO 20966 --- [           main] liquibase.util                           : Previously run:               0
+2026-02-21 13:52:51.201  INFO 20966 --- [           main] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:51.201  INFO 20966 --- [           main] liquibase.util                           : -------------------------------
+2026-02-21 13:52:51.201  INFO 20966 --- [           main] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:51.202  INFO 20966 --- [           main] liquibase.util                           : Update summary generated
+2026-02-21 13:52:51.204  INFO 20966 --- [           main] liquibase.command                        : Update command completed successfully.
+2026-02-21 13:52:51.204  INFO 20966 --- [           main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 56
+2026-02-21 13:52:51.207  INFO 20966 --- [           main] liquibase.lockservice                    : Successfully released change log lock
+2026-02-21 13:52:51.209  INFO 20966 --- [           main] liquibase.command                        : Command execution complete
+2026-02-21 13:52:52.737  INFO 20966 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:53.058  INFO 20966 --- [           main] c.e.mybatis.MybatisApplicationTest       : Started MybatisApplicationTest in 4.306 seconds (process running for 8.524)
+2026-02-21 13:52:53.540  INFO 20966 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-02-21 13:52:53.557  INFO 20966 --- [           main] o.a.maven.surefire.booter.ForkedBooter   : Starting ForkedBooter v3.5.4 using Java 23.0.1 with PID 20966 (started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:53.557  INFO 20966 --- [           main] o.a.maven.surefire.booter.ForkedBooter   : The following 1 profile is active: "dev"
+2026-02-21 13:52:53.684  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-02-21 13:52:53.700  INFO 20966 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1f1d8f8
+2026-02-21 13:52:53.700  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-02-21 13:52:53.708  INFO 20966 --- [           main] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:53.746  INFO 20966 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:53.785  INFO 20966 --- [           main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-02-21 13:52:53.787  INFO 20966 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : Run:                          0
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : Previously run:              22
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : -------------------------------
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.util                           : Update summary generated
+2026-02-21 13:52:53.792  INFO 20966 --- [           main] liquibase.command                        : Command execution complete
+2026-02-21 13:52:53.836  INFO 20966 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:53.898  INFO 20966 --- [           main] o.a.maven.surefire.booter.ForkedBooter   : Started ForkedBooter in 0.359 seconds (process running for 9.365)
+2026-02-21 13:52:53.950  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-02-21 13:52:53.980  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-02-21 13:52:54.027  INFO 20966 --- [       Thread-8] com.example.mybatis.MybatisApplication   : Starting MybatisApplication using Java 23.0.1 with PID 20966 (/Users/_jan_codes_/Desktop/my-mybatis/demo/target/classes started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:52:54.027 DEBUG 20966 --- [       Thread-8] com.example.mybatis.MybatisApplication   : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:52:54.027  INFO 20966 --- [       Thread-8] com.example.mybatis.MybatisApplication   : The following 1 profile is active: "dev"
+2026-02-21 13:52:54.138  INFO 20966 --- [       Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-02-21 13:52:54.150  INFO 20966 --- [       Thread-8] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@36d40cd7
+2026-02-21 13:52:54.150  INFO 20966 --- [       Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-02-21 13:52:54.159  INFO 20966 --- [       Thread-8] liquibase.database                       : Set default schema name to public
+2026-02-21 13:52:54.190  INFO 20966 --- [       Thread-8] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:52:54.213  INFO 20966 --- [       Thread-8] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-02-21 13:52:54.216  INFO 20966 --- [       Thread-8] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:52:54.216  INFO 20966 --- [       Thread-8] liquibase.util                           : Run:                          0
+2026-02-21 13:52:54.216  INFO 20966 --- [       Thread-8] liquibase.util                           : Previously run:              22
+2026-02-21 13:52:54.216  INFO 20966 --- [       Thread-8] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:52:54.216  INFO 20966 --- [       Thread-8] liquibase.util                           : -------------------------------
+2026-02-21 13:52:54.216  INFO 20966 --- [       Thread-8] liquibase.util                           : Total change sets:           22
+2026-02-21 13:52:54.217  INFO 20966 --- [       Thread-8] liquibase.util                           : Update summary generated
+2026-02-21 13:52:54.217  INFO 20966 --- [       Thread-8] liquibase.command                        : Command execution complete
+2026-02-21 13:52:54.258  INFO 20966 --- [       Thread-8] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:52:54.305  INFO 20966 --- [       Thread-8] com.example.mybatis.MybatisApplication   : Started MybatisApplication in 0.308 seconds (process running for 9.772)
+2026-02-21 13:52:58.009  WARN 20966 --- [           main] o.j.j.e.d.AbstractExtensionContext       : Type implements CloseableResource but not AutoCloseable: org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter
+2026-02-21 13:52:58.994  INFO 20966 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.mybatis.security.SecurityConfigTest]: SecurityConfigTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-02-21 13:52:59.008  INFO 20966 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.mybatis.MybatisApplication for test class com.example.mybatis.security.SecurityConfigTest
+2026-02-21 13:52:59.010  INFO 20966 --- [           main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-02-21 13:52:59.077  INFO 20966 --- [           main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: ab1dd11997aa7e996365d7d657ae206f7f62f98e724c2a1a9e8c4833cdd571a7
+2026-02-21 13:53:00.443  INFO 20966 --- [           main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.432303S
+2026-02-21 13:53:00.444  INFO 20966 --- [           main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:63111/testdb?loggerLevel=OFF)
+2026-02-21 13:53:00.459  INFO 20966 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-02-21 13:53:00.516  INFO 20966 --- [           main] c.e.mybatis.security.SecurityConfigTest  : Starting SecurityConfigTest using Java 23.0.1 with PID 20966 (started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 13:53:00.516 DEBUG 20966 --- [           main] c.e.mybatis.security.SecurityConfigTest  : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 13:53:00.516  INFO 20966 --- [           main] c.e.mybatis.security.SecurityConfigTest  : The following 1 profile is active: "dev"
+2026-02-21 13:53:00.749  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-02-21 13:53:00.775  INFO 20966 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@450ab544
+2026-02-21 13:53:00.775  INFO 20966 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-02-21 13:53:00.790  INFO 20966 --- [           main] liquibase.database                       : Set default schema name to public
+2026-02-21 13:53:00.868  INFO 20966 --- [           main] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-02-21 13:53:00.893  INFO 20966 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:53:00.947  INFO 20966 --- [           main] liquibase.snapshot                       : Creating snapshot
+2026-02-21 13:53:01.010  INFO 20966 --- [           main] liquibase.lockservice                    : Successfully acquired change log lock
+2026-02-21 13:53:01.011  INFO 20966 --- [           main] liquibase.command                        : Using deploymentId: 1656769837
+2026-02-21 13:53:01.012  INFO 20966 --- [           main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 13:53:01.022  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::001-create-menu::app
+2026-02-21 13:53:01.029  INFO 20966 --- [           main] liquibase.changelog                      : Table menu created
+2026-02-21 13:53:01.032  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to menu (parent_id)
+2026-02-21 13:53:01.033  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::001-create-menu::app ran successfully in 11ms
+2026-02-21 13:53:01.037  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::002-create-permission::app
+2026-02-21 13:53:01.043  INFO 20966 --- [           main] liquibase.changelog                      : Table permission created
+2026-02-21 13:53:01.045  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::002-create-permission::app ran successfully in 8ms
+2026-02-21 13:53:01.052  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::003-create-role::app
+2026-02-21 13:53:01.067  INFO 20966 --- [           main] liquibase.changelog                      : Table role created
+2026-02-21 13:53:01.069  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::003-create-role::app ran successfully in 16ms
+2026-02-21 13:53:01.085  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::004-create-role-permission::app
+2026-02-21 13:53:01.093  INFO 20966 --- [           main] liquibase.changelog                      : Table role_permission created
+2026-02-21 13:53:01.102  INFO 20966 --- [           main] liquibase.changelog                      : Primary key added to role_permission (role_id, permission_id)
+2026-02-21 13:53:01.109  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (role_id)
+2026-02-21 13:53:01.113  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_permission (permission_id)
+2026-02-21 13:53:01.114  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::004-create-role-permission::app ran successfully in 28ms
+2026-02-21 13:53:01.120  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::005-create-role-menu::app
+2026-02-21 13:53:01.123  INFO 20966 --- [           main] liquibase.changelog                      : Table role_menu created
+2026-02-21 13:53:01.125  INFO 20966 --- [           main] liquibase.changelog                      : Primary key added to role_menu (role_id, menu_id)
+2026-02-21 13:53:01.127  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (role_id)
+2026-02-21 13:53:01.128  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to role_menu (menu_id)
+2026-02-21 13:53:01.129  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::005-create-role-menu::app ran successfully in 9ms
+2026-02-21 13:53:01.132  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::006-create-user::app
+2026-02-21 13:53:01.137  INFO 20966 --- [           main] liquibase.changelog                      : Table user created
+2026-02-21 13:53:01.137  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::006-create-user::app ran successfully in 5ms
+2026-02-21 13:53:01.141  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::007-create-user-role::app
+2026-02-21 13:53:01.144  INFO 20966 --- [           main] liquibase.changelog                      : Table user_role created
+2026-02-21 13:53:01.147  INFO 20966 --- [           main] liquibase.changelog                      : Primary key added to user_role (user_id, role_id)
+2026-02-21 13:53:01.152  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (user_id)
+2026-02-21 13:53:01.155  INFO 20966 --- [           main] liquibase.changelog                      : Foreign key constraint added to user_role (role_id)
+2026-02-21 13:53:01.156  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::007-create-user-role::app ran successfully in 15ms
+2026-02-21 13:53:01.160  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/001-schema.yaml::008-create-indexes::app
+2026-02-21 13:53:01.163  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_role_code created
+2026-02-21 13:53:01.166  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_permission_code created
+2026-02-21 13:53:01.168  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_menu_parent created
+2026-02-21 13:53:01.170  INFO 20966 --- [           main] liquibase.changelog                      : Index idx_user_username created
+2026-02-21 13:53:01.171  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/001-schema.yaml::008-create-indexes::app ran successfully in 11ms
+2026-02-21 13:53:01.181  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-001-menus::app
+2026-02-21 13:53:01.189  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.191  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-001-menus::app ran successfully in 9ms
+2026-02-21 13:53:01.194  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-002-permissions::app
+2026-02-21 13:53:01.200  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.201  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-002-permissions::app ran successfully in 6ms
+2026-02-21 13:53:01.204  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-003-roles::app
+2026-02-21 13:53:01.208  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.209  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-003-roles::app ran successfully in 4ms
+2026-02-21 13:53:01.211  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-004-role-menu::app
+2026-02-21 13:53:01.216  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.218  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.221  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.222  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-004-role-menu::app ran successfully in 10ms
+2026-02-21 13:53:01.224  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-005-role-permission::app
+2026-02-21 13:53:01.228  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.229  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.231  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.232  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-005-role-permission::app ran successfully in 8ms
+2026-02-21 13:53:01.235  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-006-user-admin::app
+2026-02-21 13:53:01.237  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.238  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-006-user-admin::app ran successfully in 3ms
+2026-02-21 13:53:01.241  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/002-data.yaml::data-007-user-role-admin::app
+2026-02-21 13:53:01.246  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.247  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/002-data.yaml::data-007-user-role-admin::app ran successfully in 6ms
+2026-02-21 13:53:01.256  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app
+2026-02-21 13:53:01.268  INFO 20966 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to role
+2026-02-21 13:53:01.270  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::009-add-username-role::app ran successfully in 13ms
+2026-02-21 13:53:01.279  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app
+2026-02-21 13:53:01.285  INFO 20966 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to permission
+2026-02-21 13:53:01.287  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::010-add-username-permission::app ran successfully in 7ms
+2026-02-21 13:53:01.294  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app
+2026-02-21 13:53:01.298  INFO 20966 --- [           main] liquibase.changelog                      : Columns username(VARCHAR(100)) added to menu
+2026-02-21 13:53:01.300  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/003-add-username-columns.yaml::011-add-username-menu::app ran successfully in 6ms
+2026-02-21 13:53:01.304  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app
+2026-02-21 13:53:01.308  INFO 20966 --- [           main] liquibase.changelog                      : Column role.username renamed to ousername
+2026-02-21 13:53:01.309  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::012-rename-role-username-to-ousername::app ran successfully in 4ms
+2026-02-21 13:53:01.312  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app
+2026-02-21 13:53:01.314  INFO 20966 --- [           main] liquibase.changelog                      : Column permission.username renamed to ousername
+2026-02-21 13:53:01.315  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/004-rename-username-to-ousername-role-permission.yaml::013-rename-permission-username-to-ousername::app ran successfully in 3ms
+2026-02-21 13:53:01.321  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app
+2026-02-21 13:53:01.326  INFO 20966 --- [           main] liquibase.changelog                      : Columns ousername(VARCHAR(100)) added to user
+2026-02-21 13:53:01.326  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/005-add-ousername-user.yaml::014-add-ousername-user::app ran successfully in 4ms
+2026-02-21 13:53:01.329  INFO 20966 --- [           main] liquibase.ui                             : Running Changeset: db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app
+2026-02-21 13:53:01.332  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.334  INFO 20966 --- [           main] liquibase.changelog                      : Custom SQL executed
+2026-02-21 13:53:01.335  INFO 20966 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/changes/006-menu-main-sub.yaml::015-menu-main-sub-hierarchy::app ran successfully in 6ms
+2026-02-21 13:53:01.337  INFO 20966 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.util                           : Run:                         22
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.util                           : Previously run:               0
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.util                           : Filtered out:                 0
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.util                           : -------------------------------
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.util                           : Total change sets:           22
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.util                           : Update summary generated
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.command                        : Update command completed successfully.
+2026-02-21 13:53:01.338  INFO 20966 --- [           main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 56
+2026-02-21 13:53:01.341  INFO 20966 --- [           main] liquibase.lockservice                    : Successfully released change log lock
+2026-02-21 13:53:01.342  INFO 20966 --- [           main] liquibase.command                        : Command execution complete
+2026-02-21 13:53:01.407  INFO 20966 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 13:53:01.466  INFO 20966 --- [           main] c.e.mybatis.security.SecurityConfigTest  : Started SecurityConfigTest in 1.007 seconds (process running for 16.932)
+2026-02-21 13:53:02.869 DEBUG 20966 --- [           main] c.e.mybatis.controller.UserController    : list users page=0, size=10, name=null, email=null
+2026-02-21 13:53:02.937 DEBUG 20966 --- [           main] c.e.mybatis.controller.UserController    : list users page=0, size=10, name=null, email=null
+2026-02-21 13:53:02.950 DEBUG 20966 --- [           main] c.e.mybatis.controller.UserController    : list users page=2, size=10, name=null, email=null
+2026-02-21 13:53:02.956 DEBUG 20966 --- [           main] c.e.mybatis.controller.UserController    : list users page=0, size=10, name=null, email=null
+2026-02-21 13:53:02.962  INFO 20966 --- [           main] c.e.mybatis.controller.UserController    : create user username=newuser
+2026-02-21 13:53:02.965  INFO 20966 --- [           main] c.e.mybatis.controller.UserController    : delete user id=1
+2026-02-21 13:53:02.973 DEBUG 20966 --- [           main] c.e.mybatis.controller.UserController    : getOne user id=1
+2026-02-21 13:53:02.983 DEBUG 20966 --- [           main] c.e.mybatis.controller.UserController    : getOne user id=999
+2026-02-21 13:53:02.994  INFO 20966 --- [           main] c.e.mybatis.controller.UserController    : update user id=1
+2026-02-21 13:53:03.041  INFO 20966 --- [           main] c.e.mybatis.controller.RoleController    : delete role id=1
+2026-02-21 13:53:03.048 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.054 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.059 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=2, size=10, code=null, name=null
+2026-02-21 13:53:03.062 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : list roles page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.075  INFO 20966 --- [           main] c.e.mybatis.controller.RoleController    : update role id=1
+2026-02-21 13:53:03.086  INFO 20966 --- [           main] c.e.mybatis.controller.RoleController    : create role code=NEW
+2026-02-21 13:53:03.096 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : getOne role id=1
+2026-02-21 13:53:03.102 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : getOne role id=999
+2026-02-21 13:53:03.125  INFO 20966 --- [           main] c.e.mybatis.controller.RoleController    : assignMenus roleId=1
+2026-02-21 13:53:03.128  INFO 20966 --- [           main] c.e.mybatis.controller.RoleController    : assignMenus roleId=1
+2026-02-21 13:53:03.134 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : getMenusByRole roleId=1
+2026-02-21 13:53:03.139 DEBUG 20966 --- [           main] c.e.mybatis.controller.RoleController    : getMenusByRole roleId=999
+2026-02-21 13:53:03.170 DEBUG 20966 --- [           main] c.e.m.controller.PermissionController    : list permissions page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.173 DEBUG 20966 --- [           main] c.e.m.controller.PermissionController    : list permissions page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.176 DEBUG 20966 --- [           main] c.e.m.controller.PermissionController    : list permissions page=2, size=10, code=null, name=null
+2026-02-21 13:53:03.179 DEBUG 20966 --- [           main] c.e.m.controller.PermissionController    : list permissions page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.181  INFO 20966 --- [           main] c.e.m.controller.PermissionController    : create permission code=NEW
+2026-02-21 13:53:03.188  INFO 20966 --- [           main] c.e.m.controller.PermissionController    : delete permission id=1
+2026-02-21 13:53:03.194 DEBUG 20966 --- [           main] c.e.m.controller.PermissionController    : getOne permission id=1
+2026-02-21 13:53:03.197 DEBUG 20966 --- [           main] c.e.m.controller.PermissionController    : getOne permission id=999
+2026-02-21 13:53:03.201  INFO 20966 --- [           main] c.e.m.controller.PermissionController    : update permission id=1
+2026-02-21 13:53:03.218  INFO 20966 --- [           main] c.e.mybatis.controller.MenuController    : create menu name=New Menu
+2026-02-21 13:53:03.221  INFO 20966 --- [           main] c.e.mybatis.controller.MenuController    : delete menu id=1
+2026-02-21 13:53:03.224 DEBUG 20966 --- [           main] c.e.mybatis.controller.MenuController    : getOne menu id=1
+2026-02-21 13:53:03.226 DEBUG 20966 --- [           main] c.e.mybatis.controller.MenuController    : getOne menu id=999
+2026-02-21 13:53:03.228  INFO 20966 --- [           main] c.e.mybatis.controller.MenuController    : update menu id=1
+2026-02-21 13:53:03.230 DEBUG 20966 --- [           main] c.e.mybatis.controller.MenuController    : list menus page=0, size=10, name=null, path=null, parentId=null
+2026-02-21 13:53:03.280  INFO 20966 --- [           main] c.e.mybatis.controller.AuthController    : login attempt username=testuser
+2026-02-21 13:53:03.282  INFO 20966 --- [           main] c.e.mybatis.controller.AuthController    : login success userId=1 username=testuser
+2026-02-21 13:53:03.285  INFO 20966 --- [           main] c.e.mybatis.controller.AuthController    : login attempt username=bad
+2026-02-21 13:53:03.485  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu name=New Menu
+2026-02-21 13:53:03.485  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu success id=null name=New Menu
+2026-02-21 13:53:03.488  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu name=X
+2026-02-21 13:53:03.488 ERROR 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : create menu failed name=X
+2026-02-21 13:53:03.491  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu id=1
+2026-02-21 13:53:03.492  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu success id=1
+2026-02-21 13:53:03.495  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu id=999
+2026-02-21 13:53:03.495  WARN 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : update menu not found id=999
+2026-02-21 13:53:03.500 DEBUG 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll page=0, size=10, name=null, path=null, parentId=null
+2026-02-21 13:53:03.501  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll menus returned 1 items, total=1
+2026-02-21 13:53:03.507 DEBUG 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll page=4, size=5, name=Admin, path=/admin, parentId=1
+2026-02-21 13:53:03.508  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findAll menus returned 0 items, total=0
+2026-02-21 13:53:03.514  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu id=1
+2026-02-21 13:53:03.514  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu success id=1
+2026-02-21 13:53:03.520  INFO 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu id=999
+2026-02-21 13:53:03.520  WARN 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : deleteById menu not found id=999
+2026-02-21 13:53:03.525 DEBUG 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findById menu id=1
+2026-02-21 13:53:03.529 DEBUG 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findById menu id=999
+2026-02-21 13:53:03.530  WARN 20966 --- [           main] c.e.m.service.impl.MenuServiceImpl       : findById menu not found id=999
+2026-02-21 13:53:03.607  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user id=1
+2026-02-21 13:53:03.608  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user success id=1
+2026-02-21 13:53:03.612  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user id=999
+2026-02-21 13:53:03.612  WARN 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : deleteById user not found id=999
+2026-02-21 13:53:03.617  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user username=newuser
+2026-02-21 13:53:03.618  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user success id=10 username=newuser
+2026-02-21 13:53:03.623  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user username=x
+2026-02-21 13:53:03.624 ERROR 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : create user failed insert username=x
+2026-02-21 13:53:03.628 DEBUG 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : findAll page=0, size=10, name=null, email=null
+2026-02-21 13:53:03.629  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : findAll returned 1 users, total=1
+2026-02-21 13:53:03.634  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=1
+2026-02-21 13:53:03.634  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user success id=1
+2026-02-21 13:53:03.637  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=1
+2026-02-21 13:53:03.637  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user success id=1
+2026-02-21 13:53:03.639  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=1
+2026-02-21 13:53:03.639  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user success id=1
+2026-02-21 13:53:03.641  INFO 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user id=999
+2026-02-21 13:53:03.641  WARN 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : update user not found id=999
+2026-02-21 13:53:03.644 DEBUG 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : findById id=1
+2026-02-21 13:53:03.648 DEBUG 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : findById id=999
+2026-02-21 13:53:03.648  WARN 20966 --- [           main] c.e.m.service.impl.UserServiceImpl       : findById user not found id=999
+2026-02-21 13:53:03.653  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission code=NEW_CODE
+2026-02-21 13:53:03.653  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission success id=2 code=NEW_CODE
+2026-02-21 13:53:03.655  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission code=X
+2026-02-21 13:53:03.655 ERROR 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : create permission failed code=X
+2026-02-21 13:53:03.659  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission id=1
+2026-02-21 13:53:03.659  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission success id=1
+2026-02-21 13:53:03.662  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission id=999
+2026-02-21 13:53:03.663  WARN 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : update permission not found id=999
+2026-02-21 13:53:03.667 DEBUG 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findById permission id=1
+2026-02-21 13:53:03.670 DEBUG 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findById permission id=999
+2026-02-21 13:53:03.670  WARN 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findById permission not found id=999
+2026-02-21 13:53:03.673  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission id=1
+2026-02-21 13:53:03.673  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission success id=1
+2026-02-21 13:53:03.675  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission id=999
+2026-02-21 13:53:03.676  WARN 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : deleteById permission not found id=999
+2026-02-21 13:53:03.678 DEBUG 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findAll page=0, size=10, code=null, name=null
+2026-02-21 13:53:03.679  INFO 20966 --- [           main] c.e.m.s.impl.PermissionServiceImpl       : findAll permissions returned 1 items, total=1
+2026-02-21 13:53:03.695  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role id=2
+2026-02-21 13:53:03.695  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role success id=2
+2026-02-21 13:53:03.697  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role id=999
+2026-02-21 13:53:03.698  WARN 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : update role not found id=999
+2026-02-21 13:53:03.707  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role id=1
+2026-02-21 13:53:03.707  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role success id=1
+2026-02-21 13:53:03.710  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role id=999
+2026-02-21 13:53:03.710  WARN 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : deleteById role not found id=999
+2026-02-21 13:53:03.714  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=1, menuIdsCount=2
+2026-02-21 13:53:03.716  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole success roleId=1
+2026-02-21 13:53:03.721  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=1, menuIdsCount=0
+2026-02-21 13:53:03.722  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole success roleId=1
+2026-02-21 13:53:03.726  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=999, menuIdsCount=1
+2026-02-21 13:53:03.726  WARN 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole role not found roleId=999
+2026-02-21 13:53:03.732  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : assignMenusToRole roleId=1, menuIdsCount=1
+2026-02-21 13:53:03.774 DEBUG 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : findById role id=1
+2026-02-21 13:53:03.777 DEBUG 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : findById role id=999
+2026-02-21 13:53:03.778  WARN 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : findById role not found id=999
+2026-02-21 13:53:03.784 DEBUG 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : getMenusByRoleId roleId=1
+2026-02-21 13:53:03.791 DEBUG 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : getMenusByRoleId roleId=999
+2026-02-21 13:53:03.792  WARN 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : getMenusByRoleId role not found roleId=999
+2026-02-21 13:53:03.796  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role code=NEW
+2026-02-21 13:53:03.796  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role success id=null code=NEW
+2026-02-21 13:53:03.803  INFO 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role code=X
+2026-02-21 13:53:03.804 ERROR 20966 --- [           main] c.e.m.service.impl.RoleServiceImpl       : create role failed code=X
+2026-02-21 13:53:04.004  INFO 20966 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-21 13:53:04.007  INFO 20966 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-21 13:53:04.195  INFO 20966 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-02-21 13:53:04.196  INFO 20966 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-02-21 13:53:04.198  INFO 20966 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-02-21 13:53:04.199  INFO 20966 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-02-21 20:58:58.818  INFO 23453 --- [  restartedMain] com.example.mybatis.MybatisApplication   : Starting MybatisApplication using Java 23.0.1 with PID 23453 (/Users/_jan_codes_/Desktop/my-mybatis/demo/target/classes started by _jan_codes_ in /Users/_jan_codes_/Desktop/my-mybatis/demo)
+2026-02-21 20:58:58.822 DEBUG 23453 --- [  restartedMain] com.example.mybatis.MybatisApplication   : Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-02-21 20:58:58.823  INFO 23453 --- [  restartedMain] com.example.mybatis.MybatisApplication   : The following 1 profile is active: "dev"
+2026-02-21 20:58:58.872  INFO 23453 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-21 20:58:58.872  INFO 23453 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-21 20:58:59.694  INFO 23453 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8989 (http)
+2026-02-21 20:58:59.704  INFO 23453 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-21 20:58:59.704  INFO 23453 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-21 20:58:59.734  INFO 23453 --- [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 861 ms
+2026-02-21 20:58:59.793  INFO 23453 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-21 20:58:59.932  INFO 23453 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@53694140
+2026-02-21 20:58:59.933  INFO 23453 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-21 20:59:00.055  INFO 23453 --- [  restartedMain] liquibase.database                       : Set default schema name to public
+2026-02-21 20:59:00.363  INFO 23453 --- [  restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 20:59:00.449  INFO 23453 --- [  restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-02-21 20:59:00.451  INFO 23453 --- [  restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2026-02-21 20:59:00.461  INFO 23453 --- [  restartedMain] liquibase.util                           : UPDATE SUMMARY
+2026-02-21 20:59:00.461  INFO 23453 --- [  restartedMain] liquibase.util                           : Run:                          0
+2026-02-21 20:59:00.461  INFO 23453 --- [  restartedMain] liquibase.util                           : Previously run:              22
+2026-02-21 20:59:00.461  INFO 23453 --- [  restartedMain] liquibase.util                           : Filtered out:                 0
+2026-02-21 20:59:00.461  INFO 23453 --- [  restartedMain] liquibase.util                           : -------------------------------
+2026-02-21 20:59:00.461  INFO 23453 --- [  restartedMain] liquibase.util                           : Total change sets:           22
+2026-02-21 20:59:00.462  INFO 23453 --- [  restartedMain] liquibase.util                           : Update summary generated
+2026-02-21 20:59:00.462  INFO 23453 --- [  restartedMain] liquibase.command                        : Command execution complete
+2026-02-21 20:59:02.297 DEBUG 23453 --- [  restartedMain] c.e.m.security.JwtAuthenticationFilter   : Filter 'jwtAuthenticationFilter' configured for use
+2026-02-21 20:59:02.300 DEBUG 23453 --- [  restartedMain] c.e.mybatis.filter.RateLimitFilter       : Filter 'rateLimitFilter' configured for use
+2026-02-21 20:59:02.402  INFO 23453 --- [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-02-21 20:59:02.920  INFO 23453 --- [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8989 (http) with context path '/'
+2026-02-21 20:59:02.929  INFO 23453 --- [  restartedMain] com.example.mybatis.MybatisApplication   : Started MybatisApplication in 4.576 seconds (process running for 5.038)
+2026-02-21 20:59:06.759  INFO 23453 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-21 20:59:06.763  INFO 23453 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-21 20:59:06.773  INFO 23453 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-21 20:59:06.788  INFO 23453 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

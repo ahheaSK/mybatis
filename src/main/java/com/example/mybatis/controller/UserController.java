@@ -1,5 +1,6 @@
 package com.example.mybatis.controller;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.request.UserCreateRequest;
 import com.example.mybatis.dto.request.UserUpdateRequest;
 import com.example.mybatis.dto.response.ApiResponse;
@@ -55,7 +56,7 @@ public class UserController {
         ApiResponse<List<UserResponse>> response = ApiResponse.successWithPage(
                 pr.getContent(),
                 pagination,
-                "Get All With Pagination Data Successfully",
+                ApiMessages.PAGINATION_SUCCESS,
                 200
         );
         return ResponseEntity.ok(response);
@@ -66,7 +67,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<UserResponse>> getOne(
             @Parameter(description = "User ID") @PathVariable Long id) {
         log.debug("getOne user id={}", id);
-        return ResponseEntity.ok(ApiResponse.success(userService.findById(id), "Get user successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(userService.findById(id), ApiMessages.GET_ONE_SUCCESS, 200));
     }
 
     @Operation(summary = "Create user")
@@ -74,7 +75,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody UserCreateRequest request) {
         log.info("create user username={}", request.getUsername());
         userService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "User created successfully", 201));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, ApiMessages.CREATED_SUCCESS, 201));
     }
 
     @Operation(summary = "Update user", description = "Updates only non-null fields; omit password to keep current")
@@ -85,7 +86,7 @@ public class UserController {
     ) {
         log.info("update user id={}", id);
         userService.update(id, request);
-        return ResponseEntity.ok(ApiResponse.success(null, "User updated successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.UPDATED_SUCCESS, 200));
     }
 
     @Operation(summary = "Delete user")
@@ -94,6 +95,6 @@ public class UserController {
             @Parameter(description = "User ID") @PathVariable Long id) {
         log.info("delete user id={}", id);
         userService.deleteById(id);
-        return ResponseEntity.ok(ApiResponse.success(null, "User deleted successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.DELETED_SUCCESS, 200));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mybatis.security;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.response.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ public class ApiResponseAuthenticationEntryPoint implements AuthenticationEntryP
                          AuthenticationException authException) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        ApiResponse<Void> body = ApiResponse.error("Unauthorized", 401);
+        ApiResponse<Void> body = ApiResponse.error(ApiMessages.UNAUTHORIZED, 401);
         response.getOutputStream().write(SecurityResponseWriter.toJson(body).getBytes(StandardCharsets.UTF_8));
     }
 }

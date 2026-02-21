@@ -1,5 +1,6 @@
 package com.example.mybatis.controller;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.request.LoginRequest;
 import com.example.mybatis.dto.response.ApiResponse;
 import com.example.mybatis.dto.response.LoginResponse;
@@ -76,6 +77,6 @@ public class AuthController {
 
         LoginResponse response = new LoginResponse(token, user.getId(), user.getUsername(), roles, permissions);
         log.info("login success userId={} username={}", user.getId(), user.getUsername());
-        return ResponseEntity.ok(ApiResponse.success(response, "Login successful", 200));
+        return ResponseEntity.ok(ApiResponse.success(response, ApiMessages.LOGIN_SUCCESS, 200));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mybatis.controller;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.request.MenuCreateRequest;
 import com.example.mybatis.dto.request.MenuUpdateRequest;
 import com.example.mybatis.dto.response.ApiResponse;
@@ -56,7 +57,7 @@ public class MenuController {
         return ResponseEntity.ok(ApiResponse.successWithPage(
                 pr.getContent(),
                 pagination,
-                "Get All With Pagination Data Successfully",
+                ApiMessages.PAGINATION_SUCCESS,
                 200
         ));
     }
@@ -66,7 +67,7 @@ public class MenuController {
     public ResponseEntity<ApiResponse<MenuResponse>> getOne(
             @Parameter(description = "Menu ID") @PathVariable Long id) {
         log.debug("getOne menu id={}", id);
-        return ResponseEntity.ok(ApiResponse.success(menuService.findById(id), "Get menu successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(menuService.findById(id), ApiMessages.GET_ONE_SUCCESS, 200));
     }
 
     @Operation(summary = "Create menu")
@@ -74,7 +75,7 @@ public class MenuController {
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody MenuCreateRequest request) {
         log.info("create menu name={}", request.getName());
         menuService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Menu created successfully", 201));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, ApiMessages.CREATED_SUCCESS, 201));
     }
 
     @Operation(summary = "Update menu", description = "Updates only non-null fields")
@@ -85,7 +86,7 @@ public class MenuController {
     ) {
         log.info("update menu id={}", id);
         menuService.update(id, request);
-        return ResponseEntity.ok(ApiResponse.success(null, "Menu updated successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.UPDATED_SUCCESS, 200));
     }
 
     @Operation(summary = "Delete menu")
@@ -94,6 +95,6 @@ public class MenuController {
             @Parameter(description = "Menu ID") @PathVariable Long id) {
         log.info("delete menu id={}", id);
         menuService.deleteById(id);
-        return ResponseEntity.ok(ApiResponse.success(null, "Menu deleted successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.DELETED_SUCCESS, 200));
     }
 }

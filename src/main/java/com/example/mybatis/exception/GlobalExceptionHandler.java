@@ -12,12 +12,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.response.ApiResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    private static final String DUPLICATE_KEY_MESSAGE = "Duplicate value violates unique constraint";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidation(MethodArgumentNotValidException ex) {
@@ -43,19 +42,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiResponse<Void>> handleBadCredentials(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(ApiResponse.error("Invalid username or password", 401));
+                .body(ApiResponse.error(ApiMessages.INVALID_USERNAME_OR_PASSWORD, 401));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<Void>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.error("Invalid request body or JSON format", 400));
+                .body(ApiResponse.error(ApiMessages.INVALID_REQUEST_BODY, 400));
     }
 
     @ExceptionHandler(DuplicateKeyException.class)
     public ResponseEntity<ApiResponse<Void>> handleDuplicateKey(DuplicateKeyException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(ApiResponse.error(DUPLICATE_KEY_MESSAGE, 409));
+                .body(ApiResponse.error(ApiMessages.DUPLICATE_KEY, 409));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
@@ -65,20 +64,20 @@ public class GlobalExceptionHandler {
                 : ex.getMessage();
         if (message != null && (message.contains("duplicate key") || message.contains("unique constraint"))) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(ApiResponse.error(DUPLICATE_KEY_MESSAGE, 409));
+                    .body(ApiResponse.error(ApiMessages.DUPLICATE_KEY, 409));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.error("Data integrity violation", 400));
+                .body(ApiResponse.error(ApiMessages.DATA_INTEGRITY_VIOLATION, 400));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleException(Exception ex) {
         if (isDuplicateKey(ex)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(ApiResponse.error(DUPLICATE_KEY_MESSAGE, 409));
+                    .body(ApiResponse.error(ApiMessages.DUPLICATE_KEY, 409));
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error(ex.getMessage() != null ? ex.getMessage() : "Internal server error", 500));
+                .body(ApiResponse.error(ex.getMessage() != null ? ex.getMessage() : ApiMessages.INTERNAL_SERVER_ERROR, 500));
     }
 
     private boolean isDuplicateKey(Throwable ex) {

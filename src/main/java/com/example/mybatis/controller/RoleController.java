@@ -1,5 +1,6 @@
 package com.example.mybatis.controller;
 
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.request.RoleCreateRequest;
 import com.example.mybatis.dto.request.RoleMenuAssignRequest;
 import com.example.mybatis.dto.request.RoleUpdateRequest;
@@ -57,7 +58,7 @@ public class RoleController {
         return ResponseEntity.ok(ApiResponse.successWithPage(
                 pr.getContent(),
                 pagination,
-                "Get All With Pagination Data Successfully",
+                ApiMessages.PAGINATION_SUCCESS,
                 200
         ));
     }
@@ -67,7 +68,7 @@ public class RoleController {
     public ResponseEntity<ApiResponse<RoleResponse>> getOne(
             @Parameter(description = "Role ID") @PathVariable Long id) {
         log.debug("getOne role id={}", id);
-        return ResponseEntity.ok(ApiResponse.success(roleService.findById(id), "Get role successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(roleService.findById(id), ApiMessages.GET_ONE_SUCCESS, 200));
     }
 
     @Operation(summary = "Create role")
@@ -75,7 +76,7 @@ public class RoleController {
     public ResponseEntity<ApiResponse<Void>> create(@Valid @RequestBody RoleCreateRequest request) {
         log.info("create role code={}", request.getCode());
         roleService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, "Role created successfully", 201));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(null, ApiMessages.CREATED_SUCCESS, 201));
     }
 
     @Operation(summary = "Update role", description = "Updates only non-null fields")
@@ -86,7 +87,7 @@ public class RoleController {
     ) {
         log.info("update role id={}", id);
         roleService.update(id, request);
-        return ResponseEntity.ok(ApiResponse.success(null, "Role updated successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.UPDATED_SUCCESS, 200));
     }
 
     @Operation(summary = "Delete role")
@@ -95,7 +96,7 @@ public class RoleController {
             @Parameter(description = "Role ID") @PathVariable Long id) {
         log.info("delete role id={}", id);
         roleService.deleteById(id);
-        return ResponseEntity.ok(ApiResponse.success(null, "Role deleted successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.DELETED_SUCCESS, 200));
     }
 
     @Operation(summary = "Get menus by role", description = "Returns all menus assigned to the role")
@@ -104,7 +105,7 @@ public class RoleController {
             @Parameter(description = "Role ID") @PathVariable Long id) {
         log.debug("getMenusByRole roleId={}", id);
         List<MenuResponse> menus = roleService.getMenusByRoleId(id);
-        return ResponseEntity.ok(ApiResponse.success(menus, "Get menus by role successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(menus, ApiMessages.GET_MENUS_BY_ROLE_SUCCESS, 200));
     }
 
     @Operation(summary = "Assign menus to role", description = "Replaces existing menu assignments with the given list")
@@ -114,6 +115,6 @@ public class RoleController {
             @RequestBody RoleMenuAssignRequest request) {
         log.info("assignMenus roleId={}", id);
         roleService.assignMenusToRole(id, request != null ? request.getMenuIds() : null);
-        return ResponseEntity.ok(ApiResponse.success(null, "Menus assigned successfully", 200));
+        return ResponseEntity.ok(ApiResponse.success(null, ApiMessages.MENUS_ASSIGNED, 200));
     }
 }

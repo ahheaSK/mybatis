@@ -1,7 +1,8 @@
 package com.example.mybatis.filter;
 
-import com.example.mybatis.properties.RateLimitProperties;
+import com.example.mybatis.constants.ApiMessages;
 import com.example.mybatis.dto.response.ApiResponse;
+import com.example.mybatis.properties.RateLimitProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bucket4j.Bucket;
 import jakarta.servlet.FilterChain;
@@ -50,7 +51,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             response.setStatus(429);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding("UTF-8");
-            ApiResponse<Void> body = ApiResponse.error("Too many requests. Try again later.", 429);
+            ApiResponse<Void> body = ApiResponse.error(ApiMessages.TOO_MANY_REQUESTS, 429);
             objectMapper.writeValue(response.getOutputStream(), body);
         }
     }
